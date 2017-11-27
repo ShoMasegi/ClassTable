@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginEnd="16dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    app:cardCornerRadius="0dp"
+    app:cardElevation="0dp"
+    app:cardMaxElevation="0dp">
+
+    <ImageView
+        android:src="@drawable/border"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/card_view_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="8dp">
+
+            <View
+                android:id="@+id/card_view_color"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:background="@color/itembox_red"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.5" />
+
+            <TextView
+                android:id="@+id/card_view_className"
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:gravity="center_vertical"
+                android:text="Material Design"
+                android:lines="1"
+                android:ellipsize="end"
+                android:textColor="@color/char_black"
+                android:textSize="17sp"
+                android:layout_marginStart="@dimen/space_12dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintRight_toLeftOf="@+id/card_view_sectionTime"
+                app:layout_constraintLeft_toRightOf="@+id/card_view_color"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/card_view_sectionTime"
+                android:layout_width="24dp"
+                android:layout_height="wrap_content"
+                android:text="2nd"
+                android:textColor="@color/char_black"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/card_view_time"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/card_view_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10:50 ~ 12:30"
+                android:textColor="@color/char_black"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            </android.support.constraint.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/card_view_teacher_sub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TEACHER"
+            android:textSize="13sp"
+            android:layout_marginStart="36dp"
+            android:layout_marginEnd="16dp"
+            android:layout_below="@+id/card_view_parent"
+            android:gravity="end" />
+
+        <TextView
+            android:id="@+id/card_view_teacher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sundar Pichai"
+            android:textSize="14sp"
+            android:textColor="@color/char_black"
+            android:layout_toEndOf="@+id/card_view_teacher_sub"
+            android:layout_alignBottom="@+id/card_view_teacher_sub"/>
+
+        <TextView
+            android:id="@+id/card_view_location_sub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LOCATION"
+            android:textSize="13sp"
+            android:layout_alignEnd="@+id/card_view_teacher_sub"
+            android:layout_below="@+id/card_view_teacher_sub"
+            android:gravity="end"/>
+
+        <TextView
+            android:id="@+id/card_view_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Amphitheatre Park"
+            android:textSize="14sp"
+            android:textColor="@color/char_black"
+            android:layout_toEndOf="@+id/card_view_location_sub"
+            android:layout_alignStart="@+id/card_view_teacher"
+            android:layout_below="@+id/card_view_teacher"/>
+
+        <TextView
+            android:id="@+id/card_view_memo_sub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MEMO"
+            android:textSize="13sp"
+            android:layout_alignEnd="@+id/card_view_location_sub"
+            android:layout_below="@+id/card_view_location_sub" />
+
+        <TextView
+            android:id="@+id/card_view_memo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dummy_sentence"
+            android:textSize="14sp"
+            android:textColor="@color/char_black"
+            android:maxLines="2"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_toEndOf="@+id/card_view_memo_sub"
+            android:layout_alignTop="@+id/card_view_memo_sub" />
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/clickable"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/setting_switch_title"
+            style="@style/SettingTitleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@+id/setting_switch_switch"
+            android:ellipsize="end"
+            android:lines="1"
+            tools:text="Setting Title"/>
+
+        <TextView
+            android:id="@+id/setting_switch_description"
+            style="@style/SettingDescriptionText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/setting_switch_title"
+            android:layout_toStartOf="@+id/setting_switch_switch"
+            android:layout_marginTop="8dp"
+            tools:text="here comes descriptions what this option is."/>
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/setting_switch_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:paddingBottom="4dp"
+            android:paddingEnd="8dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingStart="8dp"
+            android:paddingTop="4dp"/>
+
+    </RelativeLayout>
+
+</layout>

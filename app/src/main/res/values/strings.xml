@@ -1,0 +1,86 @@
+<resources>
+    <string name="app_name">ClassTable</string>
+
+
+    <!-- Error Message -->
+    <string name="error_no_classname">Must fill in ClassName.</string>
+    <string name="error_overflow">Overflow.\nCheck start time or section count.</string>
+    <string name="error_already_exist">In this section, other class already exist.</string>
+    <string name="error_classname_used">This class name is already used.</string>
+    <string name="error_default">Please Check items.</string>
+    <string name="error_delete_table">Can not delete this table, because it is currently in use.</string>
+
+    <string name="delete_class_question">"Delete this class? : "</string>
+    <string name="dummy_sentence">Lorem ipsum dolor sit amet,
+        consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna wirl aliqua.
+        Ut enim ad minim ikad veniam, quis nostrud exercitatn ullamco laboris nisinuli.</string>
+    <string name="no_todo_sub">You have no tasks!</string>
+    <string name="no_todo_main">You have no tasks to do!</string>
+    <string name="no_class">You have no class today!</string>
+    <string name="tasks_more_three">more...</string>
+    <string name="no_memo">You have no memos.</string>
+
+    <string name="null_todo_taskName">Must fill task name.</string>
+    <string name="error_get_todo">Error : can not get tasks.</string>
+    <string name="delete_task">Completed remove the task.</string>
+    <string name="delete">DELETE</string>
+    <string name="todo">Todo</string>
+    <string name="memo">Memo</string>
+    <string name="settings">Settings</string>
+
+    <string-array name="edit">
+        <item>Edit Name</item>
+        <item>Delete</item>
+    </string-array>
+
+    <!-- ColorPickerDialog strings. -->
+    <string name="color_picker_default_title">Select a Color</string>
+    <string name="color_picker_default_title_multiselect">Select Colors</string>
+
+    <!-- Settings strings -->
+    <string name="settings_select_days">Select days of the week</string>
+    <string name="settings_set_time">Set classes time</string>
+    <string name="settings_class_table_group">ClassTable</string>
+    <string name="settings_count_of_class">Count of Classes</string>
+    <string name="settings_choose_table">Choose Table</string>
+    <string name="settings_notification">Notification</string>
+    <string name="settings_notification_description">Choose whether to receive notification in this app.</string>
+    <string name="settings_other">Other</string>
+    <string name="settings_licenses">Licenses</string>
+    <string name="settings_attendance">Attendance</string>
+    <string name="settings_attendance_title">Attendance management</string>
+    <string name="settings_attendance_description">Management your attendance enable.</string>
+    <string name="settings_management_mode">Management Mode</string>
+    <string name="settings_edit_table">Edit Tables</string>
+
+    <string name="settings_pref_file_key">preferenceKey</string>
+    <string name="settings_pref_table_id_key">tableIdKey</string>
+    <string name="settings_class_time">Edit Class Times</string>
+
+
+    <!-- Setting Dialog strings -->
+    <string name="dialog_days_of_week">Days of week</string>
+    <string name="dialog_choose_table">Choose Table</string>
+    <string name="dialog_count_classes">Count of classes</string>
+    <string name="dialog_create_table">Create table</string>
+    <string name="dialog_table_name">Table name</string>
+    <string name="dialog_table_edit">Edit Table</string>
+    <string name="dialog_table_delete">Delete This Table?</string>
+    <string name="dialog_table_delete_message">All classes and ToDo will be deleted in this table.</string>
+    <string name="dialog_error">Error</string>
+
+    <!-- Menu strings -->
+    <string name="menu_add">Add</string>
+    <string name="menu_edit">Edit</string>
+    <string name="menu_edit_name">Edit Name</string>
+    <string name="menu_delete">Delete</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_today">Today</string>
+    <string name="menu_todo">Todo</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_about">About me</string>
+    <string name="title_activity_edit_table">EditTable</string>
+
+    <string name="about_me">I\'m a senior majoring in Mechanical Engineering Informatics.</string>
+
+</resources>

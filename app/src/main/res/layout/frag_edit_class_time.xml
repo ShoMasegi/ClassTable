@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        tools:context="masegi.sho.mytimetable.view.fragment.EditClassTimeFragment"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/space_24dp">
+
+        <TextView
+            android:id="@+id/edit_class_time_header"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:text="Time"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:gravity="bottom"
+            android:layout_marginStart="@dimen/space_24dp"
+            android:paddingBottom="4dp"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/edit_class_time_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            tools:listitem="@layout/item_class_time"/>
+
+
+    </LinearLayout>
+</layout>

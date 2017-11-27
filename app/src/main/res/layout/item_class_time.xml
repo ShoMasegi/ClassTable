@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="time"
+            type="masegi.sho.mytimetable.domain.value.ClassTime"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/space_8dp"
+        android:paddingBottom="@dimen/space_8dp"
+        android:paddingStart="@dimen/space_16dp"
+        android:paddingEnd="@dimen/space_16dp"
+        android:background="?android:attr/selectableItemBackground">
+
+        <TextView
+            android:id="@+id/time_label"
+            android:layout_width="wrap_content"
+            android:layout_height="17dp"
+            android:text="@{time.period}"
+            android:hint="1st Period"
+            android:textColor="@color/char_black"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/start_time"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="start"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/start_time"
+            app:layout_constraintLeft_toLeftOf="@+id/start_time" />
+
+        <TextView
+            android:id="@+id/start_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{time.startTime}"
+            android:hint="00:00"
+            android:textColor="@color/char_black"
+            android:textSize="36sp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintRight_toLeftOf="@+id/arrow_image" />
+
+        <ImageView
+            android:id="@+id/arrow_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_arrow_forward_24dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintRight_toLeftOf="@+id/end_time"
+            app:layout_constraintBottom_toBottomOf="@+id/start_time"
+            app:layout_constraintTop_toTopOf="@+id/start_time" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="end"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/end_time"
+            app:layout_constraintLeft_toLeftOf="@+id/end_time" />
+
+        <TextView
+            android:id="@+id/end_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{time.endTime}"
+            android:hint="00:00"
+            android:textColor="@color/char_black"
+            android:textSize="36sp"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/arrow_image"
+            app:layout_constraintTop_toTopOf="@+id/arrow_image" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

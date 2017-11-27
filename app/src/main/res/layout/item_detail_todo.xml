@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="42dp"
+    android:clickable="true"
+    android:foreground="?selectableItemBackground"
+    app:cardUseCompatPadding="true">
+
+    <View
+        android:id="@+id/list_item_color"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginLeft="16dp"
+        android:background="@color/itembox_red"
+        android:layout_centerVertical="true"/>
+
+    <TextView
+        android:id="@+id/list_item_taskName"
+        android:layout_width="210dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="12dp"
+        android:layout_toRightOf="@+id/list_item_color"
+        android:text="General event"
+        android:textColor="@color/char_black"
+        android:textStyle="bold"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/list_item_dueDate"
+        android:layout_width="72dp"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="32dp"
+        android:text="8th May"
+        android:textSize="16sp"
+        android:textColor="@color/char_black"
+        android:textStyle="bold"
+        android:gravity="right"/>
+
+
+</RelativeLayout>

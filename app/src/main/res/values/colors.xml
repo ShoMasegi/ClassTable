@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#00aa8d</color>
+    <color name="colorPrimaryLight">#00bf9a</color>
+    <color name="colorPrimaryDark">#008975</color>
+    <color name="colorAccent">#00aa8d</color>
+    <color name="colorBorder">#95989A</color>
+
+    <color name="tabIndicatorColor">#FFFFFF</color>
+    <color name="item_not_checked">#808080</color>
+    <color name="gray_background">#f6f6f6</color>
+
+    <color name="char_black">#2D2D2D</color>
+    <color name="sub_char_black">#757575</color>
+    <color name="char_default">#808080</color>
+    <color name="border_black">#D3D3D3</color>
+    <color name="itembox_red">#FB8B8B</color>
+    <color name="itembox_blue">#8BB0FB</color>
+    <color name="fab_color">#549788</color>
+    <color name="positive_btn">#608BF7</color>
+    <color name="negative_btn">#FF5252</color>
+    <color name="arrow_color">#3E403D</color>
+    <color name="default_color">#00FFFFFF</color>
+    <color name="todo_default_color">#2196f3</color>
+    <color name="delete_red_color">#fa315b</color>
+
+    <!-- Greyscales -->
+    <color name="white">#ffffff</color>
+    <color name="grey50">#FAFAFA</color>
+    <color name="grey100">#EAEAEA</color>
+    <color name="grey200">#EEEEEE</color>
+    <color name="grey300">#E0E0E0</color>
+    <color name="grey400">#BDBDBD</color>
+    <color name="grey500">#9E9E9E</color>
+    <color name="grey600">#757575</color>
+    <color name="black">#000000</color>
+    <color name="black_alpha_12">#1F000000</color>
+    <color name="black_alpha_30">#4D000000</color>
+    <color name="black_alpha_54">#8A000000</color>
+    <color name="black_alpha_87">#DD000000</color>
+    <color name="white_alpha_40">#B3FFFFFF</color>
+    <color name="white_alpha_95">#F2FFFFFF</color>
+
+    <!-- Theme color -->
+    <color name="colorPrimary_red">#f44336</color>
+    <color name="colorPrimaryDark_red">#ba000d</color>
+    <color name="colorAccent_red">#f44336</color>
+
+    <color name="colorPrimary_purple">#9c27b0</color>
+    <color name="colorPrimaryDark_purple">#6a0080</color>
+    <color name="colorAccent_purple">#9c27b0</color>
+
+    <color name="colorPrimary_blue">#2196f3</color>
+    <color name="colorPrimaryDark_blue">#0069c0</color>
+    <color name="colorAccent_blue">#2196f3</color>
+
+    <color name="colorPrimary_light_blue">#03a9f4</color>
+    <color name="colorPrimaryDark_light_blue">#007ac1</color>
+    <color name="colorAccent_light_blue">#03a9f4</color>
+
+    <color name="colorPrimary_teal">#009688</color>
+    <color name="colorPrimaryDark_teal">#00675b</color>
+    <color name="colorAccent_teal">#009688</color>
+
+    <color name="colorPrimary_green">#4caf50</color>
+    <color name="colorPrimaryDark_green">#087f23</color>
+    <color name="colorAccent_green">#4caf50</color>
+
+    <color name="colorPrimary_yellow">#ffeb3b</color>
+    <color name="colorPrimaryDark_yellow">#c8b900</color>
+    <color name="colorAccent_yellow">#ffeb3b</color>
+
+    <color name="colorPrimary_orange">#ff9800</color>
+    <color name="colorPrimaryDark_orange">#c66900</color>
+    <color name="colorAccent_orange">#ff9800</color>
+
+    <color name="colorPrimary_brown">#795548</color>
+    <color name="colorPrimaryDark_brown">#4b2c20</color>
+    <color name="colorAccent_brown">#795548</color>
+</resources>
