@@ -71,6 +71,6 @@ public class EditClassPresenter implements EditClassContract.Presenter {
     }
 
     @Override
-    public void start() {
+    public void onCreate() {
     }
 }

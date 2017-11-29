@@ -26,7 +26,7 @@ public class TodoEditPresenter implements TodoEditContract.Presenter {
     }
 
     @Override
-    public void start() {}
+    public void onCreate() {}
 
     @Override
     public void saveTask(Task task) {

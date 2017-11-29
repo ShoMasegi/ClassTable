@@ -5,5 +5,5 @@ package masegi.sho.mytimetable.di.contract;
  */
 
 public interface BasePresenter {
-    void start();
+    void onCreate();
 }

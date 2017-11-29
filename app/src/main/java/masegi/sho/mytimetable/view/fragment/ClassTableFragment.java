@@ -59,7 +59,7 @@ ClassTableAdapter.OnTableItemClickListener{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        presenter.start();
+        presenter.onCreate();
 
         View root = inflater.inflate(R.layout.frag_home,container,false);
         ClassTable timeTable = (ClassTable)root.findViewById(R.id.timetable);

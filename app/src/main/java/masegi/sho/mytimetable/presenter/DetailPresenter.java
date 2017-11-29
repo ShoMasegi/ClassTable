@@ -31,7 +31,7 @@ public class DetailPresenter implements DetailContract.Presenter {
     }
 
     @Override
-    public void start() {}
+    public void onCreate() {}
 
     @Override
     public void prepare(ClassObject classObject) {

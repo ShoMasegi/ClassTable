@@ -38,7 +38,7 @@ public class ClassTablePresenter implements ClassTableContract.Presenter,
     }
 
     @Override
-    public void start() {
+    public void onCreate() {
         classObjectsRepository.getAllClasses(new ClassDataResources.GetAllClassesCallback() {
             @Override
             public void onClassesLoaded(ClassDataSource classDataSource) {

@@ -53,7 +53,7 @@ public class ClassListPresenter implements ClassListContract.Presenter,
 
 
     @Override
-    public void start() {}
+    public void onCreate() {}
 
     @Override
     public void attachListViews(int position,ClassListContract.ListViews listView) {
