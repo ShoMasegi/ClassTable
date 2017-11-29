@@ -26,11 +26,11 @@ public interface ClassTableContract {
         }
     }
     interface Presenter extends BasePresenter{
-        void clickTimeTableItem(ClassObject item);
-        void longClickTimeTableItem(View view,ClassObject item);
-        void addClass(@Nullable ClassObject item);
-        void editClass(@NonNull ClassObject item);
-        void deleteClass(@NonNull ClassObject item);
+        void onTableItemClicked(ClassObject item);
+        void onTableItemLongClicked(View view, ClassObject item);
+        void onMenuAddClicked(@Nullable ClassObject item);
+        void onMenuEditClicked(@NonNull ClassObject item);
+        void onMenuDeleteClicked(@NonNull ClassObject item);
         void onResume();
         void onDestroy();
     }

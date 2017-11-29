@@ -39,6 +39,7 @@ public class ClassTablePresenter implements ClassTableContract.Presenter,
 
     @Override
     public void onCreate() {
+
         classObjectsRepository.getAllClasses(new ClassDataResources.GetAllClassesCallback() {
             @Override
             public void onClassesLoaded(ClassDataSource classDataSource) {
@@ -54,43 +55,47 @@ public class ClassTablePresenter implements ClassTableContract.Presenter,
     }
 
     @Override
-    public void clickTimeTableItem(ClassObject item) {
-        if(item.getClassName() != null)
+    public void onTableItemClicked(ClassObject item) {
+
+        if(item.getClassName() != null) {
+
             classTableViews.startDetailActivity(item);
+        }
     }
 
     @Override
-    public void longClickTimeTableItem(View view, ClassObject item) {
+    public void onTableItemLongClicked(View view, ClassObject item) {
+
         classTableViews.showPopupMenu(view,item);
     }
 
-    /**
-     * @param item object to save or update
-     */
     @Override
-    public void addClass(@Nullable ClassObject item) {
+    public void onMenuAddClicked(@Nullable ClassObject item) {
+
         classTableViews.startEditActivity(item);
     }
     @Override
-    public void editClass(@NonNull ClassObject item) {
+    public void onMenuEditClicked(@NonNull ClassObject item) {
+
         classTableViews.startEditActivity(item);
     }
 
     @Override
-    public void deleteClass(@NonNull final ClassObject item) {
+    public void onMenuDeleteClicked(@NonNull final ClassObject item) {
 
         if(item != null) {
+
             classTableViews.showAlertsDialog(item.getClassName(),
                     new ClassTableContract.Views.DeleteClassCallback() {
                         @Override
                         public void onDelete() {
+
                             classObjectsRepository.delete(item);
                             reloadAllClasses();
                         }
 
                         @Override
-                        public void onCancel() {
-                        }
+                        public void onCancel() { }
                     });
         }
     }
@@ -103,7 +108,8 @@ public class ClassTablePresenter implements ClassTableContract.Presenter,
             refreshClassTableView();
             shouldRefresh = false;
             shouldReload = false;
-        } else if (shouldReload) {
+        }
+        else if (shouldReload) {
 
             reloadAllClasses();
             shouldReload = false;

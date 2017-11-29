@@ -34,7 +34,7 @@ import static masegi.sho.mytimetable.view.activity.EditClassActivity.EXTRA_CLASS
  */
 
 public class ClassTableFragment extends Fragment implements ClassTableContract.Views ,
-ClassTableAdapter.OnTableItemClickListener{
+        ClassTableAdapter.OnTableItemClickListener {
 
     public static final String TAG = ClassTableFragment.class.getSimpleName();
 
@@ -50,6 +50,7 @@ ClassTableAdapter.OnTableItemClickListener{
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         classTableAdapter = new ClassTableAdapter(getActivity(),(OnTableItemClickListener)this);
     }
@@ -60,7 +61,6 @@ ClassTableAdapter.OnTableItemClickListener{
                              @Nullable Bundle savedInstanceState) {
 
         presenter.onCreate();
-
         View root = inflater.inflate(R.layout.frag_home,container,false);
         ClassTable timeTable = (ClassTable)root.findViewById(R.id.timetable);
         ClassTablePreference preference = ClassTablePreference.getInstance();
@@ -86,21 +86,17 @@ ClassTableAdapter.OnTableItemClickListener{
     }
 
 
-    /**
-     *
-     * Override TimeTableContract.View
-     * @see ClassTableContract.Views
-     * Here method make change the View of this Activity when Presenter instruct
-     */
-
     @Override
     public void setPresenter(@NonNull ClassTableContract.Presenter presenter) {
+
         this.presenter = presenter;
     }
 
     @Override
     public void startDetailActivity(ClassObject item) {
+
         if(item.getClassName() != null) {
+
             Intent intent = new Intent(getActivity(), DetailActivity.class);
             Bundle bundle = new Bundle();
             bundle.putParcelable(DetailActivity.EXTRA_CLASS_OBJECT,item);
@@ -120,12 +116,16 @@ ClassTableAdapter.OnTableItemClickListener{
 
     @Override
     public void showPopupMenu(View view, ClassObject item) {
+
         PopupMenu popupMenu = new PopupMenu(getContext(),view);
         MenuInflater menuInflater = popupMenu.getMenuInflater();
         popupMenu.setOnMenuItemClickListener(new MenuItemClickListener(item));
-        if (item.getClassName()!=null){
+        if (item.getClassName() != null) {
+
             menuInflater.inflate(R.menu.menu_exist_class_object,popupMenu.getMenu());
-        }else{
+        }
+        else {
+
             menuInflater.inflate(R.menu.menu_class_object,popupMenu.getMenu());
         }
         popupMenu.show();
@@ -133,24 +133,28 @@ ClassTableAdapter.OnTableItemClickListener{
 
     @Override
     public void setClassDataSource(ClassDataSource dataSource) {
+
         classTableAdapter.setItemsAndRefresh(dataSource, false);
     }
 
 
     @Override
     public void refresh(ClassDataSource dataSource) {
+
         classTableAdapter.setItemsAndRefresh(dataSource, true);
     }
 
     @Override
     public void showAlertsDialog(String className,
                                  final DeleteClassCallback callback) {
+
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage(getActivity().getResources().getString(R.string.delete_class_question)
-        + className).setPositiveButton("DELETE",
+        builder.setMessage(getActivity().getResources().getString(R.string.delete_class_question) + className)
+                .setPositiveButton("DELETE",
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+
                                 callback.onDelete();
                             }
                         })
@@ -158,6 +162,7 @@ ClassTableAdapter.OnTableItemClickListener{
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+
                                 callback.onCancel();
                             }
                         })
@@ -173,13 +178,13 @@ ClassTableAdapter.OnTableItemClickListener{
      */
     @Override
     public void onTableItemClick(ClassObject item) {
-        presenter.clickTimeTableItem(item);
+        presenter.onTableItemClicked(item);
     }
 
     @Override
     public void onTableItemLongClick(View view,ClassObject item) {
         //onLongClick item
-        presenter.longClickTimeTableItem(view,item);
+        presenter.onTableItemLongClicked(view,item);
     }
 
 
@@ -194,21 +199,22 @@ ClassTableAdapter.OnTableItemClickListener{
         private ClassObject classObject;
 
         public MenuItemClickListener(@Nullable ClassObject classObject){
+
             this.classObject = classObject;
         }
 
         @Override
         public boolean onMenuItemClick(MenuItem menuItem) {
 
-            switch (menuItem.getItemId()){
+            switch (menuItem.getItemId()) {
                 case R.id.menu_add:
-                    presenter.addClass(classObject);
+                    presenter.onMenuAddClicked(classObject);
                     return true;
                 case R.id.menu_delete:
-                    presenter.deleteClass(classObject);
+                    presenter.onMenuDeleteClicked(classObject);
                     return true;
                 case R.id.menu_edit:
-                    presenter.editClass(classObject);
+                    presenter.onMenuEditClicked(classObject);
                     return true;
                 default:
                     return false;
