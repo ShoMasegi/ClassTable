@@ -7,7 +7,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -150,7 +149,10 @@ public class DetailFragment extends Fragment implements DetailContract.Views {
                 moreView.setVisibility(View.GONE);
             }
         }
-        else showNoTasksViews();
+        else {
+
+            showNoTasksViews();
+        }
         showMemo(memo);
         moreView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -216,17 +218,17 @@ public class DetailFragment extends Fragment implements DetailContract.Views {
     }
 
     @Override
-    public void prepareData(ClassObject classObject) {
+    public void setClassObject(ClassObject classObject) {
         this.object = classObject;
     }
 
     @Override
-    public void prepareTask(ArrayList<Task> tasks) {
+    public void setTask(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
     @Override
-    public void prepareMemo(String memo) {
+    public void setMemo(String memo) {
         this.memo = memo;
     }
 

@@ -31,26 +31,26 @@ public class DetailPresenter implements DetailContract.Presenter {
     }
 
     @Override
-    public void onCreate() {}
+    public void onCreate(ClassObject classObject) {
 
-    @Override
-    public void prepare(ClassObject classObject) {
-
-        if (classObject == null) return;
+        if (classObject == null) { return; }
         this.className = classObject.getClassName();
-        detailView.prepareData(classObject);
-        restoreDataRepository.getTasks(className, false,
+        detailView.setClassObject(classObject);
+        restoreDataRepository.getTasks(
+                className,
+                false,
                 new RestoreDataSource.GetTaskCallback() {
                     @Override
                     public void onTaskLoaded(ArrayList<Task> tasksList) {
-                        detailView.prepareTask(tasksList);
+                        detailView.setTask(tasksList);
                     }
 
                     @Override
                     public void onDataNotAvailable() {
                     }
-                });
-        detailView.prepareMemo(restoreDataRepository.getMemo(className));
+                }
+        );
+        detailView.setMemo(restoreDataRepository.getMemo(className));
     }
 
     @Override

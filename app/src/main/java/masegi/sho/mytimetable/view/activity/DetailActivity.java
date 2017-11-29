@@ -7,12 +7,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import masegi.sho.mytimetable.R;
-import masegi.sho.mytimetable.data.repository.ClassObjectsRepository;
 import masegi.sho.mytimetable.data.repository.RestoreDataRepository;
-import masegi.sho.mytimetable.data.source.ClassLocalDataResources;
 import masegi.sho.mytimetable.data.source.RestoreLocalDataSource;
 import masegi.sho.mytimetable.domain.value.ClassObject;
-import masegi.sho.mytimetable.domain.value.ThemeColor;
 import masegi.sho.mytimetable.preferences.Preferences;
 import masegi.sho.mytimetable.presenter.DetailPresenter;
 import masegi.sho.mytimetable.view.fragment.DetailFragment;
@@ -38,21 +35,20 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-
         RestoreLocalDataSource restoreLocalDataSource = RestoreLocalDataSource.getInstance(getApplicationContext());
         RestoreDataRepository restoreRepository = RestoreDataRepository.getInstance(restoreLocalDataSource);
 
         DetailFragment detailFragment =
                 (DetailFragment)getSupportFragmentManager().findFragmentById(R.id.detail_content);
-        if(detailFragment == null){
+        if (detailFragment == null) {
             detailFragment = DetailFragment.newInstance();
             ActivityUtils.addFragmentToActivity(
-                    getSupportFragmentManager(),detailFragment,R.id.detail_content);
+                    getSupportFragmentManager(), detailFragment, R.id.detail_content);
         }
 
-        detailPresenter = new DetailPresenter(restoreRepository,detailFragment);
+        detailPresenter = new DetailPresenter(restoreRepository, detailFragment);
+        detailPresenter.onCreate(classObject);
         setUpViews();
-        detailPresenter.prepare(classObject);
     }
 
     private void setUpViews(){
@@ -65,6 +61,7 @@ public class DetailActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         switch (item.getItemId()){
             case android.R.id.home:
                 finish();

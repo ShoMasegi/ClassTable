@@ -12,9 +12,9 @@ import masegi.sho.mytimetable.domain.value.Task;
 public interface DetailContract {
 
     interface Views extends BaseView<Presenter>{
-        void prepareData(ClassObject classObject);
-        void prepareTask(ArrayList<Task> tasks);
-        void prepareMemo(String memo);
+        void setClassObject(ClassObject classObject);
+        void setTask(ArrayList<Task> tasks);
+        void setMemo(String memo);
         void showTasks(ArrayList<Task> tasks);
         void showMemo(String memo);
         void showSnackBar(int messageId);
@@ -23,8 +23,8 @@ public interface DetailContract {
         void startTodoListActivity();
     }
 
-    interface Presenter extends BasePresenter{
-        void prepare(ClassObject classObject);
+    interface Presenter {
+        void onCreate(ClassObject classObject);
         void clickMemoView(String memo);
         void clickTaskItem(Task task);
         void clickTaskMore();
