@@ -54,17 +54,12 @@ public class MainTodoListFragment extends Fragment implements MainTodoListContra
         return new MainTodoListFragment();
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
-        presenter.refreshData();
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        presenter.onCreate();
         View root = inflater.inflate(R.layout.frag_todo, container, false);
         layoutParent = (CoordinatorLayout) root.findViewById(R.id.todoList_parent);
         emptyStateParent = (RelativeLayout)root.findViewById(R.id.todoList_empty_state);
@@ -78,7 +73,7 @@ public class MainTodoListFragment extends Fragment implements MainTodoListContra
             protected void onTodoClicked(@NonNull Task task) {
 
                 super.onTodoClicked(task);
-                presenter.itemClicked(task);
+                presenter.onItemClicked(task);
             }
         };
         recyclerView.setAdapter(adapter);
@@ -86,7 +81,7 @@ public class MainTodoListFragment extends Fragment implements MainTodoListContra
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback =
                 new RecyclerItemTouchHelper(0, ItemTouchHelper.LEFT, this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
-        showViews();
+        refreshViews();
 
         return root;
     }
@@ -129,10 +124,7 @@ public class MainTodoListFragment extends Fragment implements MainTodoListContra
     }
 
     @Override
-    public void showError() {}
-
-    @Override
-    public void showViews() {
+    public void refreshViews() {
 
         if (emptyStateParent == null || recyclerView == null) return;
         if (data.size() > 0) {
@@ -163,18 +155,23 @@ public class MainTodoListFragment extends Fragment implements MainTodoListContra
         final Task deletedTask = adapter.getItem(position);
         final int deletedIndex = position;
         adapter.removeItem(position);
-        presenter.addToRemoveList(deletedTask);
+        presenter.onSwipedToRemove(deletedTask, position);
+    }
+
+    @Override
+    public void showDeletedTaskSnackBar(final Task item, final int position) {
+
         Snackbar snackbar = Snackbar.make(
                 layoutParent,
-                deletedTask.getTaskName() + " removed from TODO.",
+                item.getTaskName() + " removed from TODO.",
                 Snackbar.LENGTH_SHORT
         );
         snackbar.setAction("UNDO", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                adapter.restoreItem(deletedTask, deletedIndex);
-                presenter.deleteFromRemoveList(deletedTask);
+                adapter.restoreItem(item, position);
+                presenter.cancelDeleteTask(item);
             }
         });
         snackbar.setActionTextColor(Color.GREEN)

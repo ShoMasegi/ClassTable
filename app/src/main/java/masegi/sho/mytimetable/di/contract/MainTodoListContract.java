@@ -12,18 +12,17 @@ public interface MainTodoListContract {
 
     interface Views extends BaseView<Presenter>{
         void setData(ArrayList todoList);
-        void showError();
-        void showViews();
+        void showDeletedTaskSnackBar(Task item, int position);
+        void refreshViews();
         void startTodoEditActivity(Task item);
     }
 
     interface Presenter extends BasePresenter{
-        void refreshData();
         void onPause();
         void onResume();
         void onDestroy();
-        void addToRemoveList(Task item);
-        void deleteFromRemoveList(Task item);
-        void itemClicked(Task item);
+        void onSwipedToRemove(Task item, int position);
+        void cancelDeleteTask(Task item);
+        void onItemClicked(Task item);
     }
 }

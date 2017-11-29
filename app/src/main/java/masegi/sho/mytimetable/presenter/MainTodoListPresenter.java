@@ -25,33 +25,26 @@ public class MainTodoListPresenter implements MainTodoListContract.Presenter, Ob
 
     public MainTodoListPresenter(@NonNull RestoreDataRepository restoreDataRepository,
                                  @NonNull MainTodoListContract.Views todoListViews){
+
         this.restoreDataRepository = restoreDataRepository;
         this.todoListViews = todoListViews;
         removeList = new ArrayList<>();
-
         MyApp.addRestoreObserver(this);
         todoListViews.setPresenter(this);
     }
 
     @Override
-    public void onCreate() {}
-
-    @Override
-    public void refreshData() {
+    public void onCreate() {
 
         restoreDataRepository.getAllTask(new RestoreDataSource.GetTaskCallback() {
             @Override
             public void onTaskLoaded(ArrayList<Task> tasksList) {
 
                 todoListViews.setData(tasksList);
-                todoListViews.showViews();
             }
 
             @Override
-            public void onDataNotAvailable() {
-
-                todoListViews.showError();
-            }
+            public void onDataNotAvailable() { }
         });
     }
 
@@ -62,7 +55,7 @@ public class MainTodoListPresenter implements MainTodoListContract.Presenter, Ob
 
         if (removeList.size() > 0) {
 
-            deleteData();
+            this.deleteData();
             this.shouldReload = true;
         }
     }
@@ -70,7 +63,7 @@ public class MainTodoListPresenter implements MainTodoListContract.Presenter, Ob
     @Override
     public void onResume() {
 
-        if (shouldReload) {
+        if (this.shouldReload) {
 
             refreshData();
             shouldReload = false;
@@ -84,19 +77,20 @@ public class MainTodoListPresenter implements MainTodoListContract.Presenter, Ob
     }
 
     @Override
-    public void addToRemoveList(Task item) {
+    public void onSwipedToRemove(Task item, int position) {
 
         removeList.add(item);
+        todoListViews.showDeletedTaskSnackBar(item, position);
     }
 
     @Override
-    public void deleteFromRemoveList(Task item) {
+    public void cancelDeleteTask(Task item) {
 
         removeList.remove(item);
     }
 
     @Override
-    public void itemClicked(Task item) {
+    public void onItemClicked(Task item) {
 
         todoListViews.startTodoEditActivity(item);
     }
@@ -109,6 +103,22 @@ public class MainTodoListPresenter implements MainTodoListContract.Presenter, Ob
         }
         removeList.clear();
     }
+
+    private void refreshData() {
+
+        restoreDataRepository.getAllTask(new RestoreDataSource.GetTaskCallback() {
+            @Override
+            public void onTaskLoaded(ArrayList<Task> tasksList) {
+
+                todoListViews.setData(tasksList);
+                todoListViews.refreshViews();
+            }
+
+            @Override
+            public void onDataNotAvailable() { }
+        });
+    }
+
 
     @Override
     public void notifyRestoreObjectChanged() {
