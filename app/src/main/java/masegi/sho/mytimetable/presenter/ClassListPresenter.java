@@ -4,7 +4,6 @@ import android.support.annotation.NonNull;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 
 import masegi.sho.mytimetable.MyApp;
 import masegi.sho.mytimetable.api.Observer;
@@ -12,7 +11,6 @@ import masegi.sho.mytimetable.data.repository.ClassObjectsRepository;
 import masegi.sho.mytimetable.data.repository.RestoreDataRepository;
 import masegi.sho.mytimetable.di.ClassDataResources;
 import masegi.sho.mytimetable.di.contract.ClassListContract;
-import masegi.sho.mytimetable.domain.entity.ClassTableEntity;
 import masegi.sho.mytimetable.domain.value.ClassObject;
 import masegi.sho.mytimetable.domain.value.DayOfWeek;
 import masegi.sho.mytimetable.preferences.ClassTablePreference;
@@ -25,8 +23,8 @@ public class ClassListPresenter implements ClassListContract.Presenter,
         Observer.Setting, Observer.Class, Observer.Restore {
 
     private final ClassListContract.Views todayViews;
-    private HashMap<Integer, ClassListContract.ListViews> map;
-    private HashSet<Integer> set;
+    private HashMap<Integer, ClassListContract.ListViews> map = new HashMap<>();
+    private HashSet<Integer> set = new HashSet<>();
     private final ClassObjectsRepository classObjectsRepository;
     private final RestoreDataRepository restoreDataRepository;
     private DayOfWeek[] days;
@@ -41,8 +39,6 @@ public class ClassListPresenter implements ClassListContract.Presenter,
         this.restoreDataRepository = restoreDataRepository;
         this.todayViews = todayViews;
 
-        map = new HashMap<>();
-        set = new HashSet<>();
         days = ClassTablePreference.getInstance().getDaysOfWeek();
         todayViews.setPresenter(this);
 
@@ -79,7 +75,7 @@ public class ClassListPresenter implements ClassListContract.Presenter,
                     public void onClassesLoaded(ClassObject[] classObjects) {
 
                         HashMap memoMap = getMemoMap(classObjects);
-                        map.get(page).prepareData(classObjects, memoMap);
+                        map.get(page).setData(classObjects, memoMap);
                     }
 
                     @Override
@@ -88,7 +84,7 @@ public class ClassListPresenter implements ClassListContract.Presenter,
                         ClassListContract.ListViews view = map.get(page);
                         if (view != null) {
 
-                            map.get(page).prepareData(null, null);
+                            map.get(page).setData(null, null);
                             map.get(page).showNoData();
                         }
                     }

@@ -65,8 +65,8 @@ public class ClassListFragment extends Fragment implements ClassListContract.Lis
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
+        super.onCreate(savedInstanceState);
         page = getArguments().getInt(PAGE_KEY,0);
         classListPresenter.prepare(page);
     }
@@ -103,7 +103,7 @@ public class ClassListFragment extends Fragment implements ClassListContract.Lis
     }
 
     @Override
-    public void prepareData(ClassObject[] classObjects,HashMap memoMap) {
+    public void setData(ClassObject[] classObjects, HashMap memoMap) {
 
         this.classes = classObjects;
         this.memoMap = memoMap;
