@@ -68,7 +68,7 @@ public class SettingsClassTimePresenter implements SettingsClassTimeContract.Pre
     }
 
     @Override
-    public void setClassTimes(Map<Integer, ClassTime> classTimeMap) {
+    public void onPause(Map<Integer, ClassTime> classTimeMap) {
 
         prefsRepository.setClassTimes(tableId, classTimeMap);
     }

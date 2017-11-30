@@ -15,7 +15,6 @@ import java.util.Map;
 
 import masegi.sho.mytimetable.R;
 import masegi.sho.mytimetable.di.contract.SettingsClassTimeContract;
-import masegi.sho.mytimetable.domain.entity.ClassTableEntity;
 import masegi.sho.mytimetable.domain.value.ClassTime;
 import masegi.sho.mytimetable.preferences.ClassTablePreference;
 import masegi.sho.mytimetable.view.DividerItemDecoration;
@@ -79,7 +78,7 @@ public class EditClassTimeFragment extends Fragment implements SettingsClassTime
     public void onPause() {
 
         super.onPause();
-        presenter.setClassTimes(classTimeMap);
+        presenter.onPause(classTimeMap);
     }
 
     @Override

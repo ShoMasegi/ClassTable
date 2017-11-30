@@ -18,6 +18,6 @@ public interface SettingsClassTimeContract {
         void onResume();
         void onDestroy();
         Map<Integer, ClassTime> getClassTimes();
-        void setClassTimes(Map<Integer, ClassTime> classTimeMap);
+        void onPause(Map<Integer, ClassTime> classTimeMap);
     }
 }
