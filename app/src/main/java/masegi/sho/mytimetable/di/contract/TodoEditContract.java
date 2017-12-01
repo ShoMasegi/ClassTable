@@ -12,15 +12,13 @@ public interface TodoEditContract {
 
     interface Views extends BaseView<Presenter>{
         void showSnackBar(int messageId);
-        void showTaskData(Task task);
-        void savedTask();
-        void removedTask();
+        void finishTodoActivity(boolean isSaved);
+        void setTask(Task task);
     }
 
-    interface Presenter extends BasePresenter{
-        void saveTask(Task task);
-        void updateTask(Task task);
-        void removeTask(Task task);
-        void prepareTodo(String className,String createDate);
+    interface Presenter {
+        void onCreate(String className, Calendar createDate);
+        void onSaveButtonClicked(Task task);
+        void onDeleteButtonClicked(Task task);
     }
 }

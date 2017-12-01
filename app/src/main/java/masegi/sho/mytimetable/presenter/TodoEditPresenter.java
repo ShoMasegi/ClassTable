@@ -3,7 +3,11 @@ package masegi.sho.mytimetable.presenter;
 import android.support.annotation.NonNull;
 
 
+import java.util.Calendar;
+import java.util.Date;
+
 import masegi.sho.mytimetable.R;
+import masegi.sho.mytimetable.api.CalendarToString;
 import masegi.sho.mytimetable.data.repository.RestoreDataRepository;
 import masegi.sho.mytimetable.di.contract.TodoEditContract;
 import masegi.sho.mytimetable.domain.value.Task;
@@ -11,6 +15,7 @@ import masegi.sho.mytimetable.domain.value.Task;
 /**
  * Created by masegi on 2017/07/13.
  */
+
 
 public class TodoEditPresenter implements TodoEditContract.Presenter {
 
@@ -26,38 +31,60 @@ public class TodoEditPresenter implements TodoEditContract.Presenter {
     }
 
     @Override
-    public void onCreate() {}
+    public void onCreate(String className, Calendar createDate) {
 
-    @Override
-    public void saveTask(Task task) {
-        if (task.getTaskName() == null|task.getTaskName().isEmpty()){
-            view.showSnackBar(R.string.null_todo_taskName);
-            return;
+        Task task = new Task(className);
+        if (createDate == null) {
+
+            Calendar today = Calendar.getInstance();
+            task.setCreateDate(today);
+            today.add(Calendar.HOUR, 1);
+            task.setDueDate(today);
         }
-        restoreDataRepository.saveTask(task);
-        view.savedTask();
+        else {
+
+            String createDateString = CalendarToString.calendarToString(createDate);
+            task = restoreDataRepository.getTask(className, createDateString);
+            if (task == null) {
+
+                view.showSnackBar(R.string.error_get_todo);
+                Calendar today = Calendar.getInstance();
+                task.setCreateDate(today);
+                today.add(Calendar.HOUR, 1);
+                task.setDueDate(today);
+            }
+        }
+        view.setTask(task);
     }
 
     @Override
-    public void updateTask(Task task) {
-        if (task.getTaskName() == null|task.getTaskName().isEmpty()){
-            view.showSnackBar(R.string.null_todo_taskName);
-            return;
-        }
-        restoreDataRepository.updateTask(task);
-        view.savedTask();
+    public void onSaveButtonClicked(Task task) {
+
+        this.saveTask(task);
+        view.finishTodoActivity(true);
     }
 
     @Override
-    public void removeTask(Task task) {
+    public void onDeleteButtonClicked(Task task) {
+
         restoreDataRepository.deleteTask(task);
-        view.removedTask();
+        view.finishTodoActivity(false);
     }
 
-    @Override
-    public void prepareTodo(String className, String createDate) {
-        Task task = restoreDataRepository.getTask(className,createDate);
-        if(task != null) view.showTaskData(task);
-        else view.showSnackBar(R.string.error_get_todo);
+    private void saveTask(Task task) {
+
+        if (task.getTaskName() == null | task.getTaskName().isEmpty()) {
+
+            view.showSnackBar(R.string.null_todo_taskName);
+            return;
+        }
+        if (restoreDataRepository.getTask(task.getClassName(), task.getCreateDateString()) == null) {
+
+            restoreDataRepository.saveTask(task);
+        }
+        else {
+
+            restoreDataRepository.updateTask(task);
+        }
     }
 }
