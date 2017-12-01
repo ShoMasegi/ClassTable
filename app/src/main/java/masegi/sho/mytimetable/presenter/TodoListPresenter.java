@@ -30,6 +30,19 @@ public class TodoListPresenter implements TodoListContract.Presenter, Observer.R
         this.view = view;
         MyApp.addRestoreObserver(this);
         view.setPresenter(this);
+    }
+
+
+    @Override
+    public void notifyRestoreObjectChanged() {
+
+        this.shouldReload = true;
+    }
+
+
+    @Override
+    public void onCreate() {
+
         this.repository.getAllTask(new RestoreDataSource.GetTaskCallback() {
             @Override
             public void onTaskLoaded(ArrayList<Task> tasksList) {
@@ -42,34 +55,10 @@ public class TodoListPresenter implements TodoListContract.Presenter, Observer.R
         });
     }
 
-
     @Override
-    public void notifyRestoreObjectChanged() {
+    public void backedFromEditActivity() {
 
-        this.shouldReload = true;
-    }
-
-
-    @Override
-    public void onCreate() { }
-
-    @Override
-    public void refreshData() {
-
-        repository.getAllTask(new RestoreDataSource.GetTaskCallback() {
-
-            @Override
-            public void onTaskLoaded(ArrayList<Task> tasksList) {
-
-                view.setData(tasksList);
-            }
-
-            @Override
-            public void onDataNotAvailable() {
-
-                view.showError();
-            }
-        });
+        this.reloadData();
     }
 
     @Override
@@ -91,7 +80,7 @@ public class TodoListPresenter implements TodoListContract.Presenter, Observer.R
 
         if (shouldReload) {
 
-            refreshData();
+            this.reloadData();
             shouldReload = false;
         }
     }
@@ -103,13 +92,14 @@ public class TodoListPresenter implements TodoListContract.Presenter, Observer.R
     }
 
     @Override
-    public void addToRemoveList(Task item) {
+    public void onSwipedToRemove(Task item, int position) {
 
         removeList.add(item);
+        view.showDeletedTaskSnackBar(item, position);
     }
 
     @Override
-    public void deleteFromRemoveList(Task item) {
+    public void cancelDeleteTask(Task item) {
 
         removeList.remove(item);
     }
@@ -124,5 +114,23 @@ public class TodoListPresenter implements TodoListContract.Presenter, Observer.R
     public void onFABClicked() {
 
         view.startTodoEditActivity(null);
+    }
+
+    private void reloadData() {
+
+        repository.getAllTask(new RestoreDataSource.GetTaskCallback() {
+
+            @Override
+            public void onTaskLoaded(ArrayList<Task> tasksList) {
+
+                view.setData(tasksList);
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+
+                view.showError();
+            }
+        });
     }
 }

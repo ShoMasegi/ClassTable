@@ -14,7 +14,6 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.github.clans.fab.FloatingActionButton;
@@ -73,6 +72,7 @@ public class TodoListActivity extends AppCompatActivity
         RestoreLocalDataSource restoreLocalDataSource = RestoreLocalDataSource.getInstance(getApplicationContext());
         repository = RestoreDataRepository.getInstance(restoreLocalDataSource);
         presenter = new TodoListPresenter(repository, (TodoListContract.Views)this);
+        presenter.onCreate();
         this.setupViews();
     }
 
@@ -144,15 +144,9 @@ public class TodoListActivity extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if(resultCode == RESULT_SAVED) {
+        if (resultCode == RESULT_SAVED || resultCode == RESULT_REMOVED) {
 
-            presenter.refreshData();
-        }
-        else if(resultCode == RESULT_REMOVED){
-
-            presenter.refreshData();
-            Snackbar.make(layout, R.string.delete_task, Snackbar.LENGTH_SHORT)
-                    .show();
+            presenter.backedFromEditActivity();
         }
     }
 
@@ -193,20 +187,37 @@ public class TodoListActivity extends AppCompatActivity
     }
 
     @Override
-    public void startTodoEditActivity(Task item){
+    public void showDeletedTaskSnackBar(final Task item, final int position) {
 
-        Intent editIntent = new Intent(this, TodoEditActivity.class);
+        String text = item.getTaskName() + " removed from TODO.";
+        Snackbar.make(layout, text, Snackbar.LENGTH_SHORT)
+                .setAction("UNDO", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        adapter.restoreItem(item, position);
+                        presenter.cancelDeleteTask(item);
+                    }
+                })
+                .setActionTextColor(Color.GREEN)
+                .show();
+    }
+
+    @Override
+    public void startTodoEditActivity(Task item) {
+
+        Intent intent = new Intent(this, TodoEditActivity.class);
         if(item != null) {
 
-            editIntent.putExtra(TODO_CLASSNAME_KEY, item.getClassName());
-            editIntent.putExtra(TODO_CREATE_KEY,
+            intent.putExtra(TODO_CLASSNAME_KEY, item.getClassName());
+            intent.putExtra(TODO_CREATE_KEY,
                     CalendarToString.calendarToString(item.getCreateDate()));
         }
         else {
 
-            editIntent.putExtra(TODO_CLASSNAME_KEY, className);
+            intent.putExtra(TODO_CLASSNAME_KEY, className);
         }
-        startActivityForResult(editIntent,0);
+        startActivityForResult(intent,0);
     }
 
     @Override
@@ -215,18 +226,6 @@ public class TodoListActivity extends AppCompatActivity
         final Task deletedTask = adapter.getItem(position);
         final int deletedIndex = position;
         adapter.removeItem(position);
-        presenter.addToRemoveList(deletedTask);
-        String text = deletedTask.getTaskName() + " removed from TODO.";
-        Snackbar.make(layout, text, Snackbar.LENGTH_SHORT)
-                .setAction("UNDO", new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        adapter.restoreItem(deletedTask, deletedIndex);
-                        presenter.deleteFromRemoveList(deletedTask);
-                    }
-                })
-                .setActionTextColor(Color.GREEN)
-                .show();
+        presenter.onSwipedToRemove(deletedTask, deletedIndex);
     }
 }
