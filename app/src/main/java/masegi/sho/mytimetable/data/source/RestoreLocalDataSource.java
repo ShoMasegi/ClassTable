@@ -181,8 +181,7 @@ public class RestoreLocalDataSource implements RestoreDataSource, Observer.Setti
                 + ANDCLAUSE + MEMO_IS_NULL;
         String[] selectionArgs = { String.valueOf(tableId), className, createDate };
         ArrayList<Task> tasks = getTasks(selection,selectionArgs);
-        Task task = tasks.get(0);
-        return task;
+        return tasks.size() > 0 ? tasks.get(0) : null;
     }
 
     private ArrayList getTasks(@NonNull String selection, @NonNull String[] selectionArgs){
