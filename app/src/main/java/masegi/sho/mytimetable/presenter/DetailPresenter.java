@@ -54,17 +54,18 @@ public class DetailPresenter implements DetailContract.Presenter {
     }
 
     @Override
-    public void clickMemoView(String memo) {
+    public void onMemoClicked(String memo) {
         detailView.startMemoEditActivity(memo);
     }
 
     @Override
-    public void clickTaskItem(Task task) {
+    public void onTaskClicked(Task task) {
         detailView.startTodoEditActivity(task);
     }
 
     @Override
-    public void clickTaskMore() {
+    public void onTodoMoreViewClicked() {
+
         detailView.startTodoListActivity();
     }
 

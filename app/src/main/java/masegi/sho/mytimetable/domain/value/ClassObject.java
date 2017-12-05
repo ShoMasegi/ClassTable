@@ -3,7 +3,7 @@ package masegi.sho.mytimetable.domain.value;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import masegi.sho.mytimetable.R;
+import masegi.sho.mytimetable.api.OrdinalNumber;
 
 /**
  * Created by masegi on 2017/06/16.
@@ -14,7 +14,9 @@ public class ClassObject implements Parcelable {
     private int id;
     private String className;
     private int start;
+    private String startPeriod;
     private DayOfWeek week;
+    private String weekString;
     private int section;
     private String roomName;
     private String teacherName;
@@ -32,6 +34,7 @@ public class ClassObject implements Parcelable {
 
         this.className = className;
         this.week = week;
+        this.weekString = week.toString();
         this.start = start;
         this.section = section;
         this.roomName = roomName;
@@ -56,7 +59,9 @@ public class ClassObject implements Parcelable {
         this.id = in.readInt();
         this.className = in.readString();
         this.start = in.readInt();
+        this.startPeriod = OrdinalNumber.ordinalNumberString(this.start) + " Period";
         this.week = DayOfWeek.getWeekByOrdinal(in.readInt());
+        this.weekString = this.week.toString();
         this.section = in.readInt();
         this.roomName = in.readString();
         this.teacherName = in.readString();
@@ -69,17 +74,23 @@ public class ClassObject implements Parcelable {
 
     /*-------        getter & setter        --------------*/
 
-    public int getId(){ return this.id; }
-    public String getClassName(){ return this.className; }
-    public DayOfWeek getWeek(){ return  this.week; }
-    public int getStart(){ return  this.start; }
-    public int getSection(){ return this.section; }
-    public String getRoomName(){ return this.roomName; }
-    public String getTeacherName(){ return this.teacherName; }
-    public int getAtt(){ return this.att; }
-    public int getLate(){ return this.late; }
-    public int getAbs(){ return this.abs; }
-    public int[] getPosition(){ return new int[]{getWeek().ordinal(),getStart()};}
+    public int getId() { return this.id; }
+    public String getClassName() { return this.className; }
+    public DayOfWeek getWeek() { return  this.week; }
+    public String getWeekString() { return this.week.getWeekName(); }
+    public int getStart() { return  this.start; }
+    public String getStartPeriod() { return OrdinalNumber.ordinalNumberString(this.start) + " Period"; }
+    public int getSection() { return this.section; }
+    public String getSectionString() { return String.valueOf(this.section); }
+    public String getRoomName() { return this.roomName; }
+    public String getTeacherName() { return this.teacherName; }
+    public int getAtt() { return this.att; }
+    public String getAttString() { return String.valueOf(this.att); }
+    public int getLate() { return this.late; }
+    public String getLateString() { return String.valueOf(this.late); }
+    public int getAbs() { return this.abs; }
+    public String getAbsString() { return String.valueOf(this.abs); }
+    public int[] getPosition() { return new int[]{getWeek().ordinal(),getStart()};}
     public ThemeColor getThemeColor() { return this.themeColor; }
 
     public void setId(int id){ this.id = id; }

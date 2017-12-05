@@ -1,370 +1,381 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/content_edit_scroll"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".view.activity.DetailActivity">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="object"
+            type="masegi.sho.mytimetable.domain.value.ClassObject"/>
+        <variable
+            name="presenter"
+            type="masegi.sho.mytimetable.di.contract.DetailContract.Presenter"/>
+    </data>
 
-
-    <RelativeLayout
+    <android.support.v4.widget.NestedScrollView
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/detail_scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".view.activity.DetailActivity">
 
-        <ImageView
-            android:id="@+id/account_box"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginBottom="6dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="12dp"
-            android:layout_marginTop="24dp"
-            android:src="@drawable/ic_account_box_black_24dp" />
-
-        <TextView
-            android:id="@+id/detail_teacher_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@id/account_box"
-            android:layout_marginLeft="12dp"
-            android:layout_toRightOf="@id/account_box"
-            android:text="Sundar Pichai"
-            android:textColor="@color/char_black"
-            android:textSize="18sp" />
-
-        <ImageView
-            android:id="@+id/location_on"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_below="@id/account_box"
-            android:layout_marginBottom="24dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="12dp"
-            android:layout_marginTop="6dp"
-            android:src="@drawable/ic_location_on_black_24dp" />
-
-        <TextView
-            android:id="@+id/detail_room_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@id/location_on"
-            android:layout_below="@id/detail_teacher_name"
-            android:layout_marginStart="@dimen/space_12dp"
-            android:layout_toRightOf="@id/location_on"
-            android:text="Amphitheatre Parkw"
-            android:textColor="@color/char_black"
-            android:textSize="18sp" />
-
-        <LinearLayout
-            android:id="@+id/detail_info_section"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/location_on"
-            android:orientation="horizontal"
-            android:paddingBottom="@dimen/space_8dp"
-            android:paddingEnd="@dimen/space_16dp"
-            android:paddingStart="@dimen/space_16dp"
-            android:paddingTop="@dimen/space_8dp"
-            android:weightSum="5">
 
         <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/account_box"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginBottom="6dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="24dp"
+                android:src="@drawable/ic_account_box_black_24dp" />
 
             <TextView
-                android:id="@+id/detail_sub_week"
+                android:id="@+id/detail_teacher_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/space_4dp"
-                android:text="Day of Week" />
-
-            <TextView
-                android:id="@+id/detail_week"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignStart="@+id/detail_sub_week"
-                android:layout_below="@+id/detail_sub_week"
-                android:text="Thursday"
+                android:layout_alignTop="@id/account_box"
+                android:layout_marginLeft="12dp"
+                android:layout_toRightOf="@id/account_box"
+                android:text="@{object.teacherName}"
                 android:textColor="@color/char_black"
-                android:textSize="21sp" />
+                android:textSize="18sp" />
 
-        </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2">
-
-                <TextView
-                    android:id="@+id/detail_sub_start"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:text="Start time" />
-
-                <TextView
-                    android:id="@+id/detail_start"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignStart="@id/detail_sub_start"
-                    android:layout_below="@id/detail_sub_start"
-                    android:text="2nd Period"
-                    android:textColor="@color/char_black"
-                    android:textSize="21sp" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1">
-
-                <TextView
-                    android:id="@+id/detail_sub_section"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:text="Section" />
-
-                <TextView
-                    android:id="@+id/detail_section"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@id/detail_sub_section"
-                    android:layout_below="@id/detail_sub_section"
-                    android:text="2"
-                    android:textColor="@color/char_black"
-                    android:textSize="21sp" />
-
-            </RelativeLayout>
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/detail_sub_attend"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/detail_info_section"
-            android:layout_marginBottom="12dp"
-            android:layout_marginStart="@dimen/space_16dp"
-            android:layout_marginTop="@dimen/space_24dp"
-            android:text="Attendance State"
-            android:textColor="@color/char_black"
-            android:textSize="15sp" />
-
-        <LinearLayout
-            android:id="@+id/detail_attend_status"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/detail_sub_attend"
-            android:layout_marginBottom="12dp"
-            android:orientation="horizontal"
-            android:paddingEnd="@dimen/space_8dp"
-            android:paddingStart="@dimen/space_8dp"
-            android:weightSum="3">
-
-            <!--Number display-->
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <TextView
-                    android:id="@+id/detail_attend_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toStartOf="@+id/detail_attend"
-                    android:text="Attend"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/detail_attend"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_toStartOf="@+id/detail_attend_times"
-                    android:text="0"
-                    android:textColor="@color/char_black"
-                    android:textSize="56sp" />
-
-                <TextView
-                    android:id="@+id/detail_attend_times"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/detail_attend"
-                    android:layout_marginBottom="@dimen/space_4dp"
-                    android:layout_marginEnd="@dimen/space_12dp"
-                    android:layout_toStartOf="@+id/detail_attend_border"
-                    android:text="times"
-                    android:textSize="10sp" />
-
-                <View
-                    android:id="@+id/detail_attend_border"
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@color/border_black" />
-
-            </RelativeLayout>
-
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <TextView
-                    android:id="@+id/detail_late_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toStartOf="@+id/detail_late"
-                    android:text="Late"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/detail_late"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:text="0"
-                    android:textColor="@color/char_black"
-                    android:textSize="56sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@id/detail_late"
-                    android:layout_marginBottom="@dimen/space_4dp"
-                    android:layout_toEndOf="@id/detail_late"
-                    android:text="times"
-                    android:textSize="10sp" />
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@color/border_black" />
-
-            </RelativeLayout>
-
-
-            <RelativeLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <TextView
-                    android:id="@+id/detail_abs_label"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/space_12dp"
-                    android:text="Absent"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/detail_abs"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignTop="@id/detail_abs_label"
-                    android:layout_toEndOf="@id/detail_abs_label"
-                    android:text="7"
-                    android:textColor="@color/char_black"
-                    android:textSize="56sp" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@id/detail_abs"
-                    android:layout_marginBottom="@dimen/space_4dp"
-                    android:layout_toEndOf="@id/detail_abs"
-                    android:text="times"
-                    android:textSize="10sp" />
-
-            </RelativeLayout>
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/detail_sub_todo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/detail_sub_attend"
-            android:layout_below="@id/detail_attend_status"
-            android:layout_marginBottom="12dp"
-            android:layout_marginTop="12dp"
-            android:text="Todo"
-            android:textColor="@color/char_black"
-            android:textSize="15sp" />
-
-        <RelativeLayout
-            android:id="@+id/detail_todo_list"
-            android:layout_width="match_parent"
-            android:layout_height="128dp"
-            android:layout_below="@+id/detail_sub_todo"
-            android:layout_marginBottom="8dp">
+            <ImageView
+                android:id="@+id/location_on"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_below="@id/account_box"
+                android:layout_marginBottom="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="12dp"
+                android:layout_marginTop="6dp"
+                android:src="@drawable/ic_location_on_black_24dp" />
 
             <TextView
-                android:id="@+id/no_task_text"
-                android:layout_width="match_parent"
-                android:layout_height="42dp"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                android:text="@string/no_todo_sub"
-                android:textSize="16sp"/>
+                android:id="@+id/detail_room_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/location_on"
+                android:layout_below="@id/detail_teacher_name"
+                android:layout_marginStart="@dimen/space_12dp"
+                android:layout_toRightOf="@id/location_on"
+                android:text="@{object.roomName}"
+                android:textColor="@color/char_black"
+                android:textSize="18sp" />
 
-            <ListView
-                android:id="@+id/detail_list_content"
+            <LinearLayout
+                android:id="@+id/detail_info_section"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scrollIndicators="none"
-                tools:listitem="@layout/item_detail_todo" />
+                android:layout_height="wrap_content"
+                android:layout_below="@id/location_on"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/space_8dp"
+                android:paddingEnd="@dimen/space_16dp"
+                android:paddingStart="@dimen/space_16dp"
+                android:paddingTop="@dimen/space_8dp"
+                android:weightSum="5">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2">
+
+                    <TextView
+                        android:id="@+id/detail_sub_week"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/space_4dp"
+                        android:text="Day of Week" />
+
+                    <TextView
+                        android:id="@+id/detail_week"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignStart="@+id/detail_sub_week"
+                        android:layout_below="@+id/detail_sub_week"
+                        android:text="@{object.weekString}"
+                        android:textColor="@color/char_black"
+                        android:textSize="21sp" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2">
+
+                    <TextView
+                        android:id="@+id/detail_sub_start"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:text="Start time" />
+
+                    <TextView
+                        android:id="@+id/detail_start"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignStart="@id/detail_sub_start"
+                        android:layout_below="@id/detail_sub_start"
+                        android:text="@{object.startPeriod}"
+                        android:textColor="@color/char_black"
+                        android:textSize="21sp" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/detail_sub_section"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:text="Section" />
+
+                    <TextView
+                        android:id="@+id/detail_section"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@id/detail_sub_section"
+                        android:layout_below="@id/detail_sub_section"
+                        android:text="@{object.sectionString}"
+                        android:textColor="@color/char_black"
+                        android:textSize="21sp" />
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/detail_sub_attend"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/detail_info_section"
+                android:layout_marginBottom="12dp"
+                android:layout_marginStart="@dimen/space_16dp"
+                android:layout_marginTop="@dimen/space_24dp"
+                android:text="Attendance State"
+                android:textColor="@color/char_black"
+                android:textSize="15sp" />
+
+            <LinearLayout
+                android:id="@+id/detail_attend_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/detail_sub_attend"
+                android:layout_marginBottom="12dp"
+                android:orientation="horizontal"
+                android:paddingEnd="@dimen/space_8dp"
+                android:paddingStart="@dimen/space_8dp"
+                android:weightSum="3">
+
+                <!--Number display-->
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/detail_attend_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toStartOf="@+id/detail_attend"
+                        android:text="Attend"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/detail_attend"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_toStartOf="@+id/detail_attend_times"
+                        android:text="@{object.attString}"
+                        android:textColor="@color/char_black"
+                        android:textSize="56sp" />
+
+                    <TextView
+                        android:id="@+id/detail_attend_times"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/detail_attend"
+                        android:layout_marginBottom="@dimen/space_4dp"
+                        android:layout_marginEnd="@dimen/space_12dp"
+                        android:layout_toStartOf="@+id/detail_attend_border"
+                        android:text="times"
+                        android:textSize="10sp" />
+
+                    <View
+                        android:id="@+id/detail_attend_border"
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@color/border_black" />
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/detail_late_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toStartOf="@+id/detail_late"
+                        android:text="Late"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/detail_late"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:text="@{object.lateString}"
+                        android:textColor="@color/char_black"
+                        android:textSize="56sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@id/detail_late"
+                        android:layout_marginBottom="@dimen/space_4dp"
+                        android:layout_toEndOf="@id/detail_late"
+                        android:text="times"
+                        android:textSize="10sp" />
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@color/border_black" />
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/detail_abs_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/space_12dp"
+                        android:text="Absent"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/detail_abs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@id/detail_abs_label"
+                        android:layout_toEndOf="@id/detail_abs_label"
+                        android:text="@{object.absString}"
+                        android:textColor="@color/char_black"
+                        android:textSize="56sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@id/detail_abs"
+                        android:layout_marginBottom="@dimen/space_4dp"
+                        android:layout_toEndOf="@id/detail_abs"
+                        android:text="times"
+                        android:textSize="10sp" />
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/detail_sub_todo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/detail_sub_attend"
+                android:layout_below="@id/detail_attend_status"
+                android:layout_marginBottom="12dp"
+                android:layout_marginTop="12dp"
+                android:text="Todo"
+                android:textColor="@color/char_black"
+                android:textSize="15sp" />
+
+            <RelativeLayout
+                android:id="@+id/detail_todo_list"
+                android:layout_width="match_parent"
+                android:layout_height="128dp"
+                android:layout_below="@+id/detail_sub_todo"
+                android:layout_marginBottom="8dp">
+
+                <TextView
+                    android:id="@+id/detail_no_task"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:text="@string/no_todo_sub"
+                    android:textSize="16sp"/>
+
+                <ListView
+                    android:id="@+id/detail_list_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollIndicators="none"
+                    tools:listitem="@layout/item_detail_todo" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/detail_todo_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/detail_todo_list"
+                android:layout_marginEnd="12dp"
+                android:text="@string/tasks_more_three"
+                android:visibility="gone"
+                android:onClick="@{() -> presenter.onTodoMoreViewClicked()}"/>
+
+            <TextView
+                android:id="@+id/detail_sub_memo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@id/detail_sub_attend"
+                android:layout_below="@id/detail_todo_more"
+                android:layout_marginBottom="12dp"
+                android:layout_marginTop="8dp"
+                android:text="Memo"
+                android:textColor="@color/char_black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/detail_memo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/detail_sub_memo"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/space_8dp"
+                android:layout_marginStart="36dp"
+                android:layout_marginEnd="36dp"
+                android:layout_marginBottom="48dp"
+                android:text="@string/dummy_sentence"
+                android:textColor="@color/char_black"
+                android:textSize="16sp">
+
+            </TextView>
 
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/detail_todo_more"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/detail_todo_list"
-            android:layout_marginEnd="12dp"
-            android:text="@string/tasks_more_three"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/detail_sub_memo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/detail_sub_attend"
-            android:layout_below="@id/detail_todo_more"
-            android:layout_marginBottom="12dp"
-            android:layout_marginTop="8dp"
-            android:text="Memo"
-            android:textColor="@color/char_black"
-            android:textSize="15sp" />
-
-        <TextView
-            android:id="@+id/detail_memo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/detail_sub_memo"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/space_8dp"
-            android:layout_marginStart="36dp"
-            android:layout_marginEnd="36dp"
-            android:layout_marginBottom="48dp"
-            android:text="@string/dummy_sentence"
-            android:textColor="@color/char_black"
-            android:textSize="16sp">
-
-        </TextView>
-
-    </RelativeLayout>
-
-</android.support.v4.widget.NestedScrollView>
+    </android.support.v4.widget.NestedScrollView>
+</layout>

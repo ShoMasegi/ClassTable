@@ -25,9 +25,9 @@ public interface DetailContract {
 
     interface Presenter {
         void onCreate(ClassObject classObject);
-        void clickMemoView(String memo);
-        void clickTaskItem(Task task);
-        void clickTaskMore();
+        void onMemoClicked(String memo);
+        void onTaskClicked(Task task);
+        void onTodoMoreViewClicked();
         void saveMemoAndRefresh(String memo);
         void saveTodoAndRefresh();
         void removeTodoAndRefresh();
