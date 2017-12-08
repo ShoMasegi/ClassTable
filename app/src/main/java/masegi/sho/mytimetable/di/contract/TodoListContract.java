@@ -17,7 +17,8 @@ public interface TodoListContract {
         void startTodoEditActivity(Task item);
     }
 
-    interface Presenter extends BasePresenter {
+    interface Presenter {
+        void onCreate(String className);
         void backedFromEditActivity();
         void onPause();
         void onResume();

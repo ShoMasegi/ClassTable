@@ -72,7 +72,7 @@ public class TodoListActivity extends AppCompatActivity
         RestoreLocalDataSource restoreLocalDataSource = RestoreLocalDataSource.getInstance(getApplicationContext());
         repository = RestoreDataRepository.getInstance(restoreLocalDataSource);
         presenter = new TodoListPresenter(repository, (TodoListContract.Views)this);
-        presenter.onCreate();
+        presenter.onCreate(className);
         this.setupViews();
     }
 

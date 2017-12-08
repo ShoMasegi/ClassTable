@@ -41,18 +41,21 @@ public class TodoListPresenter implements TodoListContract.Presenter, Observer.R
 
 
     @Override
-    public void onCreate() {
+    public void onCreate(String className) {
 
-        this.repository.getAllTask(new RestoreDataSource.GetTaskCallback() {
-            @Override
-            public void onTaskLoaded(ArrayList<Task> tasksList) {
+        this.repository.getAllTask(
+                className
+                ,new RestoreDataSource.GetTaskCallback() {
+                    @Override
+                    public void onTaskLoaded(ArrayList<Task> tasksList) {
 
-                view.setData(tasksList);
-            }
+                        view.setData(tasksList);
+                    }
 
-            @Override
-            public void onDataNotAvailable() {}
-        });
+                    @Override
+                    public void onDataNotAvailable() {}
+                }
+        );
     }
 
     @Override
