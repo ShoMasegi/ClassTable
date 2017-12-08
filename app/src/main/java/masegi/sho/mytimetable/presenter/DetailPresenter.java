@@ -82,7 +82,7 @@ public class DetailPresenter implements DetailContract.Presenter {
         restoreDataRepository.getAllTask(className, new RestoreDataSource.GetTaskCallback() {
             @Override
             public void onTaskLoaded(ArrayList<Task> tasksList) {
-                detailView.showTasks(tasksList);
+                detailView.setTask(tasksList);
             }
 
             @Override
@@ -98,7 +98,7 @@ public class DetailPresenter implements DetailContract.Presenter {
         restoreDataRepository.getAllTask(className, new RestoreDataSource.GetTaskCallback() {
             @Override
             public void onTaskLoaded(ArrayList<Task> tasksList) {
-                detailView.showTasks(tasksList);
+                detailView.setTask(tasksList);
                 detailView.showSnackBar(R.string.delete_task);
             }
 

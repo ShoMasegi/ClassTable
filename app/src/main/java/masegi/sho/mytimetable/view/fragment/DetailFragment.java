@@ -181,24 +181,16 @@ public class DetailFragment extends Fragment implements DetailContract.Views {
 
     @Override
     public void setTask(ArrayList<Task> tasks) {
+
         this.tasks = tasks;
-    }
-
-    @Override
-    public void setMemo(String memo) {
-        this.memo.set(memo);
-    }
-
-    @Override
-    public void showTasks(ArrayList<Task> tasks) {
+        if (listAdapter == null) return;
 
         listAdapter.replaceData(tasks);
-
-        if (tasks.size() > 0) {
+        if (listAdapter.getCount() > 0) {
 
             binding.detailListContent.setVisibility(View.VISIBLE);
             binding.detailNoTask.setVisibility(View.GONE);
-            if(tasks.size() > 3) {
+            if(listAdapter.getCount() > 3) {
 
                 binding.detailTodoMore.setVisibility(View.VISIBLE);
             }
@@ -212,6 +204,11 @@ public class DetailFragment extends Fragment implements DetailContract.Views {
             binding.detailListContent.setVisibility(View.GONE);
             binding.detailNoTask.setVisibility(View.VISIBLE);
         }
+    }
+
+    @Override
+    public void setMemo(String memo) {
+        this.memo.set(memo);
     }
 
     @Override
@@ -278,7 +275,7 @@ public class DetailFragment extends Fragment implements DetailContract.Views {
     public void startTodoListActivity() {
 
         Intent intent = new Intent(getActivity(), TodoListActivity.class);
-        intent.putExtra(TODOLIST_CLASSNAME_KEY,object.getClassName());
+        intent.putExtra(TODOLIST_CLASSNAME_KEY, object.getClassName());
         startActivityForResult(intent, TODOLIST_REQUEST_CODE);
     }
 
@@ -321,7 +318,7 @@ public class DetailFragment extends Fragment implements DetailContract.Views {
         public void notifyDataSetChanged() {
 
             super.notifyDataSetChanged();
-            int itemCount = getCount();
+            int itemCount = getCount() > 3 ? 3 : getCount();
             if (itemCount > 0 && itemCount <= 3) {
 
                 View item = getView(0, null, binding.detailListContent);
@@ -342,9 +339,7 @@ public class DetailFragment extends Fragment implements DetailContract.Views {
 
         @Override
         public int getCount() {
-
-            if(tasks.size() > 3) return 3;
-            else return tasks.size();
+            return tasks.size();
         }
 
         @Override

@@ -15,7 +15,6 @@ public interface DetailContract {
         void setClassObject(ClassObject classObject);
         void setTask(ArrayList<Task> tasks);
         void setMemo(String memo);
-        void showTasks(ArrayList<Task> tasks);
         void showSnackBar(int messageId);
         void startMemoEditActivity(String memo);
         void startTodoEditActivity(Task task);
