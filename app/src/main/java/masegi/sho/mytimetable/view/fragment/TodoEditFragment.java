@@ -71,7 +71,7 @@ public class TodoEditFragment extends Fragment implements TodoEditContract.Views
         String createDateString = getArguments().getString(TODO_CREATE_KEY);
 
         Calendar createDate =
-                createDateString == null ? CalendarToString.stringToCalendar(createDateString) : null;
+                createDateString != null ? CalendarToString.stringToCalendar(createDateString) : null;
         presenter.onCreate(className, createDate);
     }
 
@@ -91,6 +91,8 @@ public class TodoEditFragment extends Fragment implements TodoEditContract.Views
         todoSub.setText(task.getClassName());
         createTextView.setText(CalendarToString.calendarToCreateDate(task.getCreateDate()));
         dueTextView.setText(CalendarToString.calendarToDueDate(task.getDueDate()));
+        taskNameEdit.setText(task.getTaskName());
+        contentEdit.setText(task.getTaskContent());
 
         dueDateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
