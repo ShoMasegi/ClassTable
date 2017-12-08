@@ -73,7 +73,7 @@ public class DetailPresenter implements DetailContract.Presenter {
     public void saveMemoAndRefresh(String memo) {
 
         restoreDataRepository.saveMemo(className,memo);
-        detailView.showMemo(memo);
+        detailView.setMemo(memo);
     }
 
     @Override

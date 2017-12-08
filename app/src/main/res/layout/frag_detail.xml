@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
+        <import type="android.view.Gravity"/>
         <variable
             name="object"
             type="masegi.sho.mytimetable.domain.value.ClassObject"/>
         <variable
             name="presenter"
             type="masegi.sho.mytimetable.di.contract.DetailContract.Presenter"/>
+        <variable
+            name="memo"
+            type="android.databinding.ObservableField&lt;String&gt;"/>
     </data>
 
     <android.support.v4.widget.NestedScrollView
@@ -15,6 +19,7 @@
         android:id="@+id/detail_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingBottom="@dimen/space_16dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context=".view.activity.DetailActivity">
 
@@ -40,7 +45,7 @@
                 android:layout_alignTop="@id/account_box"
                 android:layout_marginLeft="12dp"
                 android:layout_toRightOf="@id/account_box"
-                android:text="@{object.teacherName}"
+                android:text='@{!object.teacherName.isEmpty() ? object.teacherName : "No Name"}'
                 android:textColor="@color/char_black"
                 android:textSize="18sp" />
 
@@ -63,7 +68,7 @@
                 android:layout_below="@id/detail_teacher_name"
                 android:layout_marginStart="@dimen/space_12dp"
                 android:layout_toRightOf="@id/location_on"
-                android:text="@{object.roomName}"
+                android:text='@{!object.roomName.isEmpty() ? object.roomName : "No Location"}'
                 android:textColor="@color/char_black"
                 android:textSize="18sp" />
 
@@ -97,7 +102,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignStart="@+id/detail_sub_week"
                         android:layout_below="@+id/detail_sub_week"
-                        android:text="@{object.weekString}"
+                        android:text="@{object.week.getWeekName()}"
                         android:textColor="@color/char_black"
                         android:textSize="21sp" />
 
@@ -145,7 +150,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignLeft="@id/detail_sub_section"
                         android:layout_below="@id/detail_sub_section"
-                        android:text="@{object.sectionString}"
+                        android:text="@{String.valueOf(object.section)}"
                         android:textColor="@color/char_black"
                         android:textSize="21sp" />
 
@@ -195,7 +200,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
                         android:layout_toStartOf="@+id/detail_attend_times"
-                        android:text="@{object.attString}"
+                        android:text="@{String.valueOf(object.att)}"
                         android:textColor="@color/char_black"
                         android:textSize="56sp" />
 
@@ -240,7 +245,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:text="@{object.lateString}"
+                        android:text="@{String.valueOf(object.late)}"
                         android:textColor="@color/char_black"
                         android:textSize="56sp" />
 
@@ -283,7 +288,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignTop="@id/detail_abs_label"
                         android:layout_toEndOf="@id/detail_abs_label"
-                        android:text="@{object.absString}"
+                        android:text="@{String.valueOf(object.abs)}"
                         android:textColor="@color/char_black"
                         android:textSize="56sp" />
 
@@ -369,8 +374,12 @@
                 android:layout_marginStart="36dp"
                 android:layout_marginEnd="36dp"
                 android:layout_marginBottom="48dp"
-                android:text="@string/dummy_sentence"
-                android:textColor="@color/char_black"
+                android:text=
+                    '@{!(memo.get().isEmpty() || memo.get() == null) ? memo.get() : @string/no_memo}'
+                android:textColor=
+                    "@{!(memo.get().isEmpty() || memo.get() == null) ? @color/char_black : @color/char_default}"
+                android:gravity=
+                    "@{!(memo.get().isEmpty() || memo.get() == null) ? Gravity.NO_GRAVITY : Gravity.CENTER}"
                 android:textSize="16sp">
 
             </TextView>

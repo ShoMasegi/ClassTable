@@ -3,6 +3,7 @@ package masegi.sho.mytimetable.view.fragment;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.databinding.ObservableField;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,7 +13,6 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,7 +54,7 @@ public class DetailFragment extends Fragment implements DetailContract.Views {
     private ClassObject object;
     private ArrayList<Task> tasks;
     private TasksAdapter listAdapter;
-    private String memo;
+    private ObservableField<String> memo = new ObservableField<>();
 
     private static final int MEMO_REQUEST_CODE = 1;
     private static final int TODO_REQUEST_CODE = 2;
@@ -85,8 +85,9 @@ public class DetailFragment extends Fragment implements DetailContract.Views {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.frag_detail, container, false);
         View root = binding.getRoot();
-        binding.setObject(object);
-        binding.setPresenter(detailPresenter);
+        binding.setObject(this.object);
+        binding.setPresenter(this.detailPresenter);
+        binding.setMemo(this.memo);
         setupViews();
         return root;
     }
@@ -98,14 +99,6 @@ public class DetailFragment extends Fragment implements DetailContract.Views {
         memoFab = (FloatingActionButton)getActivity().findViewById(R.id.detail_fab2);
         layout = (CoordinatorLayout)getActivity().findViewById(R.id.detail_coordinator_layout);
 
-        if (object.getTeacherName().isEmpty()) {
-
-            binding.detailTeacherName.setText("No Name");
-        }
-        if (object.getRoomName().isEmpty()) {
-
-            binding.detailRoomName.setText("No Location");
-        }
         binding.detailListContent.setAdapter(listAdapter);
         listAdapter.notifyDataSetChanged();
         if (tasks.size() > 0) {
@@ -124,7 +117,6 @@ public class DetailFragment extends Fragment implements DetailContract.Views {
 
             showNoTasksViews();
         }
-        showMemo(memo);
         menuFab.setClosedOnTouchOutside(true);
         todoFab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,7 +131,7 @@ public class DetailFragment extends Fragment implements DetailContract.Views {
             public void onClick(View v) {
 
                 menuFab.close(true);
-                detailPresenter.onMemoClicked(memo);
+                detailPresenter.onMemoClicked(memo.get());
             }
         });
 
@@ -194,7 +186,7 @@ public class DetailFragment extends Fragment implements DetailContract.Views {
 
     @Override
     public void setMemo(String memo) {
-        this.memo = memo;
+        this.memo.set(memo);
     }
 
     @Override
@@ -223,29 +215,6 @@ public class DetailFragment extends Fragment implements DetailContract.Views {
     }
 
     @Override
-    public void showMemo(String memo) {
-
-        if (memo == null) {
-
-            binding.detailMemo.setText(R.string.no_memo);
-            binding.detailMemo.setGravity(Gravity.CENTER);
-            binding.detailMemo.setTextColor(ContextCompat.getColor(getActivity(),R.color.char_default));
-        }
-        else if(memo.isEmpty()) {
-
-            binding.detailMemo.setText(R.string.no_memo);
-            binding.detailMemo.setGravity(Gravity.CENTER);
-            binding.detailMemo.setTextColor(ContextCompat.getColor(getActivity(),R.color.char_default));
-        }
-        else {
-
-            binding.detailMemo.setText(memo);
-            binding.detailMemo.setGravity(Gravity.NO_GRAVITY);
-            binding.detailMemo.setTextColor(ContextCompat.getColor(getActivity(),R.color.char_black));
-        }
-    }
-
-    @Override
     public void showSnackBar(int messageId) {
 
         Snackbar.make(layout, getString(messageId), Snackbar.LENGTH_SHORT)
@@ -259,7 +228,7 @@ public class DetailFragment extends Fragment implements DetailContract.Views {
             case(MEMO_REQUEST_CODE):
                 if(resultCode == RESULT_OK) {
 
-                    memo = data.getStringExtra(MEMO_CONTENT_KEY);
+                    String memo = data.getStringExtra(MEMO_CONTENT_KEY);
                     detailPresenter.saveMemoAndRefresh(memo);
                 }
                 break;
@@ -284,7 +253,7 @@ public class DetailFragment extends Fragment implements DetailContract.Views {
     public void startMemoEditActivity(String memo) {
 
         Intent intent = new Intent(getActivity(), MemoEditActivity.class);
-        intent.putExtra(MEMO_CONTENT_KEY,memo);
+        intent.putExtra(MEMO_CONTENT_KEY, memo);
         intent.putExtra(MEMO_CLASSCOLOR_KEY, object.getThemeColor().getThemeId());
         intent.putExtra(MEMO_CLASSNAME_KEY, object.getClassName());
         startActivityForResult(intent,MEMO_REQUEST_CODE);

@@ -16,7 +16,6 @@ public interface DetailContract {
         void setTask(ArrayList<Task> tasks);
         void setMemo(String memo);
         void showTasks(ArrayList<Task> tasks);
-        void showMemo(String memo);
         void showSnackBar(int messageId);
         void startMemoEditActivity(String memo);
         void startTodoEditActivity(Task task);
