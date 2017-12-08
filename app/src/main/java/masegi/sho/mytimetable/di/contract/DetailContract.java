@@ -26,9 +26,7 @@ public interface DetailContract {
         void onMemoClicked(String memo);
         void onTaskClicked(Task task);
         void onTodoMoreViewClicked();
-        void saveMemoAndRefresh(String memo);
-        void saveTodoAndRefresh();
-        void removeTodoAndRefresh();
-        void addNewTask();
+        void onActivityResult(int requestCode, int resultCode);
+        void onTodoFabClicked();
     }
 }

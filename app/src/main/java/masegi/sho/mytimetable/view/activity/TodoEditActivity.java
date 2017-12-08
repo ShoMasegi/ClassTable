@@ -23,6 +23,7 @@ import masegi.sho.mytimetable.util.ActivityUtils;
 public class TodoEditActivity extends AppCompatActivity {
 
 
+    public static final int TODO_REQUEST_CODE = 2;
     public static final String TODO_CLASSNAME_KEY = "TODO_CLASSNAME_KEY";
     public static final String TODO_CREATE_KEY = "TODO_CREATE_KEY";
     public static final String TODO_CLASSCOLOR_KEY = "TODO_CLASSCOLOR_KEY";

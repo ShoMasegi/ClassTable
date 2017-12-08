@@ -333,7 +333,7 @@ public class RestoreLocalDataSource implements RestoreDataSource, Observer.Setti
     public void deleteTask(Task task) {
 
         String selection = COLUMN_CLASS_TABLE_ID + WHERECLAUSE
-                + ANDCLAUSE + COLUMN_TASK_NAME + WHERECLAUSE
+                + ANDCLAUSE + COLUMN_CLASSNAME_KEY + WHERECLAUSE
                 + ANDCLAUSE + COLUMN_CREATEDATE + WHERECLAUSE;
         String[] selectionArgs = {
                 String.valueOf(tableId),

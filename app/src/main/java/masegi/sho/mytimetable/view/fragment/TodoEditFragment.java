@@ -201,14 +201,13 @@ public class TodoEditFragment extends Fragment implements TodoEditContract.Views
     @Override
     public void finishTodoActivity(boolean isSaved) {
 
-        Intent intent = new Intent();
         if (isSaved) {
 
-            getActivity().setResult(RESULT_SAVED, intent);
+            getActivity().setResult(RESULT_SAVED);
         }
         else {
 
-            getActivity().setResult(RESULT_REMOVED, intent);
+            getActivity().setResult(RESULT_REMOVED);
         }
         getActivity().finish();
     }

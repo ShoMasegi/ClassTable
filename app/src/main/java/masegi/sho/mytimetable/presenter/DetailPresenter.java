@@ -11,6 +11,13 @@ import masegi.sho.mytimetable.di.contract.DetailContract;
 import masegi.sho.mytimetable.domain.value.ClassObject;
 import masegi.sho.mytimetable.domain.value.Task;
 
+import static android.app.Activity.RESULT_OK;
+import static masegi.sho.mytimetable.view.activity.MemoEditActivity.MEMO_REQUEST_CODE;
+import static masegi.sho.mytimetable.view.activity.TodoEditActivity.TODO_REQUEST_CODE;
+import static masegi.sho.mytimetable.view.activity.TodoListActivity.TODOLIST_REQUEST_CODE;
+import static masegi.sho.mytimetable.view.fragment.TodoEditFragment.RESULT_REMOVED;
+import static masegi.sho.mytimetable.view.fragment.TodoEditFragment.RESULT_SAVED;
+
 /**
  * Created by masegi on 2017/07/06.
  */
@@ -64,20 +71,46 @@ public class DetailPresenter implements DetailContract.Presenter {
     }
 
     @Override
+    public void onActivityResult(int requestCode, int resultCode) {
+
+        switch (requestCode) {
+
+            case (MEMO_REQUEST_CODE):
+                if (resultCode == RESULT_OK) {
+
+                    String memo = restoreDataRepository.getMemo(className);
+                    detailView.setMemo(memo);
+                }
+                break;
+
+            case (TODO_REQUEST_CODE):
+                if (resultCode == RESULT_SAVED) {
+
+                    this.savedTodo();
+                }
+                else if (resultCode == RESULT_REMOVED) {
+
+                    this.removedTodo();
+                }
+                break;
+
+            case (TODOLIST_REQUEST_CODE):
+                this.savedTodo();
+        }
+    }
+
+    @Override
     public void onTodoMoreViewClicked() {
 
         detailView.startTodoListActivity();
     }
 
     @Override
-    public void saveMemoAndRefresh(String memo) {
-
-        restoreDataRepository.saveMemo(className,memo);
-        detailView.setMemo(memo);
+    public void onTodoFabClicked() {
+        detailView.startTodoEditActivity(null);
     }
 
-    @Override
-    public void saveTodoAndRefresh() {
+    public void savedTodo() {
 
         restoreDataRepository.getAllTask(className, new RestoreDataSource.GetTaskCallback() {
             @Override
@@ -92,8 +125,7 @@ public class DetailPresenter implements DetailContract.Presenter {
         });
     }
 
-    @Override
-    public void removeTodoAndRefresh() {
+    public void removedTodo() {
 
         restoreDataRepository.getAllTask(className, new RestoreDataSource.GetTaskCallback() {
             @Override
@@ -108,12 +140,4 @@ public class DetailPresenter implements DetailContract.Presenter {
             }
         });
     }
-
-
-    @Override
-    public void addNewTask() {
-        detailView.startTodoEditActivity(null);
-    }
-
-
 }
