@@ -15,8 +15,6 @@ public interface DetailContract {
         void setClassObject(ClassObject classObject);
         void setTask(ArrayList<Task> tasks);
         void setMemo(String memo);
-        void showTasks(ArrayList<Task> tasks);
-        void showMemo(String memo);
         void showSnackBar(int messageId);
         void startMemoEditActivity(String memo);
         void startTodoEditActivity(Task task);
@@ -25,9 +23,9 @@ public interface DetailContract {
 
     interface Presenter {
         void onCreate(ClassObject classObject);
-        void clickMemoView(String memo);
-        void clickTaskItem(Task task);
-        void clickTaskMore();
+        void onMemoClicked(String memo);
+        void onTaskClicked(Task task);
+        void onTodoMoreViewClicked();
         void saveMemoAndRefresh(String memo);
         void saveTodoAndRefresh();
         void removeTodoAndRefresh();

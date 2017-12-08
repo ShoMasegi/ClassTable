@@ -54,17 +54,18 @@ public class DetailPresenter implements DetailContract.Presenter {
     }
 
     @Override
-    public void clickMemoView(String memo) {
+    public void onMemoClicked(String memo) {
         detailView.startMemoEditActivity(memo);
     }
 
     @Override
-    public void clickTaskItem(Task task) {
+    public void onTaskClicked(Task task) {
         detailView.startTodoEditActivity(task);
     }
 
     @Override
-    public void clickTaskMore() {
+    public void onTodoMoreViewClicked() {
+
         detailView.startTodoListActivity();
     }
 
@@ -72,7 +73,7 @@ public class DetailPresenter implements DetailContract.Presenter {
     public void saveMemoAndRefresh(String memo) {
 
         restoreDataRepository.saveMemo(className,memo);
-        detailView.showMemo(memo);
+        detailView.setMemo(memo);
     }
 
     @Override
@@ -81,7 +82,7 @@ public class DetailPresenter implements DetailContract.Presenter {
         restoreDataRepository.getAllTask(className, new RestoreDataSource.GetTaskCallback() {
             @Override
             public void onTaskLoaded(ArrayList<Task> tasksList) {
-                detailView.showTasks(tasksList);
+                detailView.setTask(tasksList);
             }
 
             @Override
@@ -97,7 +98,7 @@ public class DetailPresenter implements DetailContract.Presenter {
         restoreDataRepository.getAllTask(className, new RestoreDataSource.GetTaskCallback() {
             @Override
             public void onTaskLoaded(ArrayList<Task> tasksList) {
-                detailView.showTasks(tasksList);
+                detailView.setTask(tasksList);
                 detailView.showSnackBar(R.string.delete_task);
             }
 
