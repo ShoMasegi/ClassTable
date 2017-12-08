@@ -34,11 +34,10 @@ import masegi.sho.mytimetable.view.activity.MemoEditActivity;
 import masegi.sho.mytimetable.view.activity.TodoEditActivity;
 import masegi.sho.mytimetable.view.activity.TodoListActivity;
 
-import static android.app.Activity.RESULT_OK;
 import static masegi.sho.mytimetable.view.activity.MemoEditActivity.*;
 import static masegi.sho.mytimetable.view.activity.TodoEditActivity.*;
 import static masegi.sho.mytimetable.view.activity.TodoListActivity.TODOLIST_CLASSNAME_KEY;
-import static masegi.sho.mytimetable.view.fragment.TodoEditFragment.*;
+import static masegi.sho.mytimetable.view.activity.TodoListActivity.TODOLIST_REQUEST_CODE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -56,9 +55,6 @@ public class DetailFragment extends Fragment implements DetailContract.Views {
     private TasksAdapter listAdapter;
     private ObservableField<String> memo = new ObservableField<>();
 
-    private static final int MEMO_REQUEST_CODE = 1;
-    private static final int TODO_REQUEST_CODE = 2;
-    private static final int TODOLIST_REQUEST_CODE = 3;
 
     private DetailContract.Presenter detailPresenter;
 
@@ -108,7 +104,7 @@ public class DetailFragment extends Fragment implements DetailContract.Views {
             public void onClick(View v) {
 
                 menuFab.close(true);
-                detailPresenter.addNewTask();
+                detailPresenter.onTodoFabClicked();
             }
         });
         memoFab.setOnClickListener(new View.OnClickListener() {
@@ -174,29 +170,7 @@ public class DetailFragment extends Fragment implements DetailContract.Views {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        switch (requestCode){
-            case(MEMO_REQUEST_CODE):
-                if(resultCode == RESULT_OK) {
-
-                    String memo = data.getStringExtra(MEMO_CONTENT_KEY);
-                    detailPresenter.saveMemoAndRefresh(memo);
-                }
-                break;
-            case(TODO_REQUEST_CODE):
-                if (resultCode == RESULT_SAVED) {
-
-                    detailPresenter.saveTodoAndRefresh();
-                }
-                if (resultCode == RESULT_REMOVED){
-
-                    detailPresenter.removeTodoAndRefresh();
-                }
-                break;
-            case(TODOLIST_REQUEST_CODE):
-                detailPresenter.saveTodoAndRefresh();
-            default:
-                break;
-        }
+        detailPresenter.onActivityResult(requestCode, resultCode);
     }
 
     @Override

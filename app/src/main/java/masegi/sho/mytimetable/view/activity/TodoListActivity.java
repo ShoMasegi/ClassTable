@@ -47,7 +47,9 @@ public class TodoListActivity extends AppCompatActivity
     @BindView(R.id.todoList_listView) RecyclerView recyclerView;
     @BindView(R.id.todoList_toolbar) Toolbar toolbar;
 
+    public static final int TODOLIST_REQUEST_CODE = 3;
     public static final String TODOLIST_CLASSNAME_KEY = "TODOLIST_CLASSNAME_KEY";
+
     private String className;
     private ArrayList<Task> tasks = new ArrayList<>();
     private MainTodoListAdapter adapter;
