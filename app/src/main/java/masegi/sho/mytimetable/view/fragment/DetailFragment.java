@@ -88,6 +88,7 @@ public class DetailFragment extends Fragment implements DetailContract.Views {
         binding.setObject(this.object);
         binding.setPresenter(this.detailPresenter);
         binding.setMemo(this.memo);
+        binding.setTasks(this.tasks);
         setupViews();
         return root;
     }
@@ -101,22 +102,6 @@ public class DetailFragment extends Fragment implements DetailContract.Views {
 
         binding.detailListContent.setAdapter(listAdapter);
         listAdapter.notifyDataSetChanged();
-        if (tasks.size() > 0) {
-
-            showTasksViews();
-            if(tasks.size() > 3) {
-
-                binding.detailTodoMore.setVisibility(View.VISIBLE);
-            }
-            else {
-
-                binding.detailTodoMore.setVisibility(View.GONE);
-            }
-        }
-        else {
-
-            showNoTasksViews();
-        }
         menuFab.setClosedOnTouchOutside(true);
         todoFab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,19 +140,6 @@ public class DetailFragment extends Fragment implements DetailContract.Views {
         }
     }
 
-    private void showNoTasksViews() {
-
-        binding.detailNoTask.setVisibility(View.VISIBLE);
-        binding.detailListContent.setVisibility(View.GONE);
-        binding.detailTodoMore.setVisibility(View.GONE);
-    }
-
-    private void showTasksViews() {
-
-        binding.detailNoTask.setVisibility(View.GONE);
-        binding.detailListContent.setVisibility(View.VISIBLE);
-    }
-
 
     @Override
     public void setPresenter(@NonNull DetailContract.Presenter presenter) {
@@ -183,27 +155,8 @@ public class DetailFragment extends Fragment implements DetailContract.Views {
     public void setTask(ArrayList<Task> tasks) {
 
         this.tasks = tasks;
-        if (listAdapter == null) return;
-
-        listAdapter.replaceData(tasks);
-        if (listAdapter.getCount() > 0) {
-
-            binding.detailListContent.setVisibility(View.VISIBLE);
-            binding.detailNoTask.setVisibility(View.GONE);
-            if(listAdapter.getCount() > 3) {
-
-                binding.detailTodoMore.setVisibility(View.VISIBLE);
-            }
-            else {
-
-                binding.detailTodoMore.setVisibility(View.GONE);
-            }
-        }
-        else {
-
-            binding.detailListContent.setVisibility(View.GONE);
-            binding.detailNoTask.setVisibility(View.VISIBLE);
-        }
+        if (binding != null) binding.setTasks(this.tasks);
+        if (listAdapter != null) listAdapter.replaceData(tasks);
     }
 
     @Override

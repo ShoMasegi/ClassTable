@@ -2,6 +2,8 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <import type="android.view.Gravity"/>
+        <import type="android.view.View"/>
+        <import type="masegi.sho.mytimetable.domain.value.Task"/>
         <variable
             name="object"
             type="masegi.sho.mytimetable.domain.value.ClassObject"/>
@@ -11,6 +13,9 @@
         <variable
             name="memo"
             type="android.databinding.ObservableField&lt;String&gt;"/>
+        <variable
+            name="tasks"
+            type="java.util.ArrayList&lt;masegi.sho.mytimetable.domain.value.Task&gt;"/>
     </data>
 
     <android.support.v4.widget.NestedScrollView
@@ -330,13 +335,15 @@
                     android:layout_centerInParent="true"
                     android:gravity="center"
                     android:text="@string/no_todo_sub"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp"
+                    android:visibility="@{tasks.size() > 0 ? View.GONE : View.VISIBLE}"/>
 
                 <ListView
                     android:id="@+id/detail_list_content"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scrollIndicators="none"
+                    android:visibility="@{tasks.size() > 0 ? View.VISIBLE : View.GONE}"
                     tools:listitem="@layout/item_detail_todo" />
 
             </RelativeLayout>
@@ -349,7 +356,7 @@
                 android:layout_below="@+id/detail_todo_list"
                 android:layout_marginEnd="12dp"
                 android:text="@string/tasks_more_three"
-                android:visibility="gone"
+                android:visibility="@{tasks.size() > 3 ? View.VISIBLE : View.GONE}"
                 android:onClick="@{() -> presenter.onTodoMoreViewClicked()}"/>
 
             <TextView
