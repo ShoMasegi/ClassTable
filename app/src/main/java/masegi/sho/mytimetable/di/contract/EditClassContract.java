@@ -1,5 +1,7 @@
 package masegi.sho.mytimetable.di.contract;
 
+import android.view.View;
+
 import masegi.sho.mytimetable.domain.value.ClassObject;
 
 /**
@@ -10,15 +12,18 @@ public interface EditClassContract {
 
     interface Views extends BaseView<Presenter>{
         void showError(int msgNum);
-        void prepareData(ClassObject classObject);
-        void savedClassObject();
-        void canceled();
+        void showNumberPickerDialog(View view, ClassObject object);
+        void showColorPickerDialog();
+        void setData(ClassObject classObject);
+        void finishActivity();
     }
 
 
-    interface Presenter extends BasePresenter{
-        void saveClassObject(ClassObject classObject);
-        void cancelBtnClick();
-        void prepare(String className, int[] position);
+    interface Presenter {
+        void onCreate(String className, int[] position);
+        void onSaveButtonClicked(ClassObject classObject);
+        void onCancelButtonClicked();
+        boolean onAttendLongClicked(View view, ClassObject object);
+        void onColorViewClicked();
     }
 }

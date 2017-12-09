@@ -31,9 +31,12 @@ public enum DayOfWeek {
     }
 
     public static DayOfWeek getWeek(@NonNull String name){
+
         String[] weekName = new String[7];
-        for(int i=0;i<dayOfWeek.length;i++){
-            if(dayOfWeek[i].getWeekName().equals(name)){
+        for(int i = 0; i < dayOfWeek.length; i++){
+
+            if(dayOfWeek[i].getWeekName().equals(name)) {
+
                 return dayOfWeek[i];
             }
         }
@@ -41,9 +44,10 @@ public enum DayOfWeek {
     }
 
     public static String[] getWeekString() {
+
         String[] weekName = new String[7];
-        // limit is dayOfWeek.length -1 because remove NULL
         for (int i =0; i < dayOfWeek.length; i++) {
+
             weekName[i] = dayOfWeek[i].getWeekName();
         }
         return weekName;

@@ -53,7 +53,7 @@ public class EditClassActivity extends AppCompatActivity{
 
         editClassPresenter = new EditClassPresenter(repository, editClassFragment);
         focusToBackground();
-        editClassPresenter.prepare(className, position);
+        editClassPresenter.onCreate(className, position);
 
     }
 
