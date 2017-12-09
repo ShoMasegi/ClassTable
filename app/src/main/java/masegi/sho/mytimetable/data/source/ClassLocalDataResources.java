@@ -75,7 +75,7 @@ public class ClassLocalDataResources implements ClassDataResources , Observer.Se
     private void incrementIdNumber() {
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt(KEY_ID, ID_NUMBER++);
+        editor.putInt(KEY_ID, ++ID_NUMBER);
         editor.commit();
     }
 
@@ -97,6 +97,7 @@ public class ClassLocalDataResources implements ClassDataResources , Observer.Se
                     + ANDCLAUSE + COLUMN_WEEK + WHERECLAUSE;
             db.beginTransaction();
             try {
+
                 Cursor c = db.query(CLASSES_TABLE_NAME, null, where, selectionArgs, null, null, null);
                 if (c != null) {
 
