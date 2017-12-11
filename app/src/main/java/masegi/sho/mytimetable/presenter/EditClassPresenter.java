@@ -1,6 +1,7 @@
 package masegi.sho.mytimetable.presenter;
 
 import android.support.annotation.NonNull;
+import android.view.View;
 
 import masegi.sho.mytimetable.data.repository.ClassObjectsRepository;
 import masegi.sho.mytimetable.di.ClassDataResources;
@@ -26,11 +27,35 @@ public class EditClassPresenter implements EditClassContract.Presenter {
     }
 
     @Override
-    public void saveClassObject(ClassObject co) {
+    public void onCreate(String className, final int[] position) {
+
+        classObjectsRepository.getClass(className, new ClassDataResources.GetClassCallback() {
+            @Override
+            public void onClassLoaded(ClassObject classObject) {
+
+                editView.setData(classObject);
+            }
+
+            @Override
+            public void onDataNotAvailable() {
+
+                ClassObject classObject = new ClassObject(
+                        null,
+                        DayOfWeek.getWeekByOrdinal(position[0]),
+                        position[1]
+                );
+                editView.setData(classObject);
+            }
+        });
+    }
+
+    @Override
+    public void onSaveButtonClicked(ClassObject co) {
+
         classObjectsRepository.save(co, new ClassDataResources.SaveClassCallback() {
             @Override
             public void onClassSaved() {
-                editView.savedClassObject();
+                editView.finishActivity();
             }
 
             @Override
@@ -42,35 +67,20 @@ public class EditClassPresenter implements EditClassContract.Presenter {
 
 
     @Override
-    public void cancelBtnClick() {
-        editView.canceled();
-    }
-
-
-    @Override
-    public void prepare(final String className, final int[] position) {
-
-        classObjectsRepository.getClass(className, new ClassDataResources.GetClassCallback() {
-            @Override
-            public void onClassLoaded(ClassObject classObject) {
-
-                editView.prepareData(classObject);
-            }
-
-            @Override
-            public void onDataNotAvailable() {
-
-                ClassObject classObject = new ClassObject(
-                        null,
-                        DayOfWeek.getWeekByOrdinal(position[0]),
-                        position[1]
-                );
-                editView.prepareData(classObject);
-            }
-        });
+    public void onCancelButtonClicked() {
+        editView.finishActivity();
     }
 
     @Override
-    public void onCreate() {
+    public boolean onAttendLongClicked(View view, ClassObject object) {
+
+        editView.showNumberPickerDialog(view, object);
+        return true;
+    }
+
+    @Override
+    public void onColorViewClicked() {
+
+        editView.showColorPickerDialog();
     }
 }

@@ -1,22 +1,24 @@
 package masegi.sho.mytimetable.domain.value;
 
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import masegi.sho.mytimetable.BR;
 import masegi.sho.mytimetable.api.OrdinalNumber;
 
 /**
  * Created by masegi on 2017/06/16.
  */
 
-public class ClassObject implements Parcelable {
+public class ClassObject extends BaseObservable implements Parcelable {
 
     private int id;
     private String className;
-    private int start;
-    private String startPeriod;
+    private int start = 1;
     private DayOfWeek week;
-    private int section;
+    private int section = 1;
     private String roomName;
     private String teacherName;
     private int att;
@@ -39,16 +41,19 @@ public class ClassObject implements Parcelable {
         this.teacherName = teacherName;
         this.themeColor = themeColor;
     }
-    public ClassObject(String className, DayOfWeek week, int start, int section){
+    public ClassObject(String className, DayOfWeek week, int start, int section) {
+
         this(className,
                 week, start, section,
                 null,null, ThemeColor.DEFAULT);
     }
-    public ClassObject(String className,DayOfWeek week,int start){
-        this(className,week,start,1);
+    public ClassObject(String className,DayOfWeek week,int start) {
+
+        this(className, week, start, 1);
     }
-    public ClassObject(String className,DayOfWeek week){
-        this(className,week,0);
+    public ClassObject(String className,DayOfWeek week) {
+
+        this(className, week, 1);
     }
     public ClassObject() {}
 
@@ -57,7 +62,6 @@ public class ClassObject implements Parcelable {
         this.id = in.readInt();
         this.className = in.readString();
         this.start = in.readInt();
-        this.startPeriod = OrdinalNumber.ordinalNumberString(this.start) + " Period";
         this.week = DayOfWeek.getWeekByOrdinal(in.readInt());
         this.section = in.readInt();
         this.roomName = in.readString();
@@ -72,31 +76,84 @@ public class ClassObject implements Parcelable {
     /*-------        getter & setter        --------------*/
 
     public int getId() { return this.id; }
+    @Bindable
     public String getClassName() { return this.className; }
+    @Bindable
     public DayOfWeek getWeek() { return  this.week; }
+    @Bindable
+    public String getWeekString() {
+
+        return this.week.getWeekName();
+    }
+    @Bindable
     public int getStart() { return  this.start; }
     public String getStartPeriod() { return OrdinalNumber.ordinalNumberString(this.start) + " Period"; }
+    @Bindable
     public int getSection() { return this.section; }
+    @Bindable
     public String getRoomName() { return this.roomName; }
+    @Bindable
     public String getTeacherName() { return this.teacherName; }
+    @Bindable
     public int getAtt() { return this.att; }
+    @Bindable
     public int getLate() { return this.late; }
+    @Bindable
     public int getAbs() { return this.abs; }
     public int[] getPosition() { return new int[]{getWeek().ordinal(),getStart()};}
     public ThemeColor getThemeColor() { return this.themeColor; }
 
-    public void setId(int id){ this.id = id; }
-    public void setClassName(String className){ this.className = className; }
-    public void setWeek(DayOfWeek week){
-        this.week = week;
+    public void setId(int id) { this.id = id; }
+    public void setClassName(String className) {
+
+        this.className = className;
+        notifyPropertyChanged(BR.className);
     }
-    public void setStart(int start){ this.start = start; }
-    public void setSection(int section){ this.section = section; }
-    public void setRoomName(String roomName){ this.roomName = roomName; }
-    public void setTeacherName(String teacherName){ this.teacherName = teacherName; }
-    public void setAtt(int att){ this.att = att; }
-    public void setLate(int late){ this.late = late; }
-    public void setAbs(int abs){ this.abs = abs; }
+    public void setWeek(DayOfWeek week){
+
+        this.week = week;
+        notifyPropertyChanged(BR.week);
+    }
+    public void setWeekString(String weekString) {
+
+        this.week = DayOfWeek.getWeek(weekString);
+        notifyPropertyChanged(BR.week);
+    }
+    public void setStart(int start) {
+
+        this.start = start;
+        notifyPropertyChanged(BR.start);
+    }
+    public void setSection(int section) {
+
+        this.section = section;
+        notifyPropertyChanged(BR.section);
+    }
+    public void setRoomName(String roomName) {
+
+        this.roomName = roomName;
+        notifyPropertyChanged(BR.roomName);
+    }
+    public void setTeacherName(String teacherName) {
+
+        this.teacherName = teacherName;
+        notifyPropertyChanged(BR.teacherName);
+    }
+    public void setAtt(int att) {
+
+        this.att = att;
+        notifyPropertyChanged(BR.att);
+    }
+    public void setLate(int late) {
+
+        this.late = late;
+        notifyPropertyChanged(BR.late);
+    }
+    public void setAbs(int abs) {
+
+        this.abs = abs;
+        notifyPropertyChanged(BR.abs);
+    }
     public void setThemeColor(ThemeColor themeColor) { this.themeColor = themeColor; }
 
     @Override

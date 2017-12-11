@@ -1,6 +1,7 @@
 package masegi.sho.mytimetable.view.fragment;
 
 
+import android.databinding.DataBindingUtil;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,16 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import masegi.sho.mytimetable.R;
+import masegi.sho.mytimetable.databinding.FragEditBinding;
 import masegi.sho.mytimetable.di.contract.EditClassContract;
 import masegi.sho.mytimetable.domain.value.ClassObject;
 import masegi.sho.mytimetable.domain.entity.ErrorMessageEntity;
@@ -36,18 +32,12 @@ import masegi.sho.mytimetable.view.ColorPickerDialog.ColorPickerDialog;
  */
 public class EditClassFragment extends Fragment implements EditClassContract.Views{
 
-    @BindView(R.id.square_view ) View colorView;
-    @BindView(R.id.edit_classname) EditText classNameEditView;
-    @BindView(R.id.edit_teacher_name) EditText teacherNameEditView;
-    @BindView(R.id.edit_room_name) EditText roomNameEditView;
-    @BindView(R.id.day_of_week) Spinner weekSpinner;
-    @BindView(R.id.spinner_time) Spinner startSpinner;
-    @BindView(R.id.spinner_section) Spinner sectionSpinner;
-    @BindView(R.id.times_attend) TextView attView;
-    @BindView(R.id.times_late) TextView lateView;
-    @BindView(R.id.times_abs) TextView absView;
-    @BindView(R.id.save_btn) Button saveBtn;
-    @BindView(R.id.cancel_btn) Button cancelBtn;
+    private enum AttendType {
+
+        ATTEND, LATE, ABSENT
+    }
+
+    private FragEditBinding binding;
 
     private EditClassContract.Presenter editPresenter;
     private ClassObject object;
@@ -71,11 +61,53 @@ public class EditClassFragment extends Fragment implements EditClassContract.Vie
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.frag_edit,container,false);
-        ButterKnife.bind(this,root);
-
+        binding = DataBindingUtil.inflate(inflater, R.layout.frag_edit, container, false);
+        View root = binding.getRoot();
+        binding.setObject(this.object);
+        binding.setPresenter(this.editPresenter);
         setupView();
         return root;
+    }
+
+    private void setupView() {
+
+        binding.attendTextView.setTag(AttendType.ATTEND);
+        binding.lateTextView.setTag(AttendType.LATE);
+        binding.absentTextView.setTag(AttendType.ABSENT);
+        setSpinners();
+        setColorView(binding.colorView, object.getThemeColor());
+    }
+
+    private void setSpinners() {
+
+        ClassTablePreference preference = ClassTablePreference.getInstance();
+        final ArrayAdapter<String> adapter =
+                new ArrayAdapter(getActivity(), android.R.layout.simple_spinner_dropdown_item);
+        for(DayOfWeek week : preference.getDaysOfWeek()) {
+
+            adapter.add(week.getWeekName());
+        }
+        binding.weekSpinner.setAdapter(adapter);
+
+        final ArrayAdapter<Integer> intAdapter
+                = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_dropdown_item);
+        for(int i = 1; i <= preference.getCountOfSection(); i++) {
+
+            intAdapter.add(i);
+        }
+        binding.startTimeSpinner.setAdapter(intAdapter);
+        binding.sectionSpinner.setAdapter(intAdapter);
+    }
+
+    private void setColorView(View view, ThemeColor themeColor) {
+
+        int colorResId = themeColor.getPrimaryColorResId();
+        GradientDrawable drawable = new GradientDrawable();
+        drawable.setShape(GradientDrawable.RECTANGLE);
+        int scale = (int)(getResources().getDisplayMetrics().density * 1.0f);
+        drawable.setStroke(scale,ContextCompat.getColor(getContext(), R.color.colorBorder));
+        drawable.setColor(ContextCompat.getColor(getContext(), colorResId));
+        view.setBackground(drawable);
     }
 
 
@@ -114,119 +146,72 @@ public class EditClassFragment extends Fragment implements EditClassContract.Vie
     }
 
     @Override
-    public void prepareData(ClassObject classObject) {
+    public void showNumberPickerDialog(final View view, final ClassObject object) {
+
+        String title = "";
+        int defValue = 0;
+        NumberPickerDialogFragment.NumberPickerCallback callback = null;
+
+        switch ((AttendType)view.getTag()) {
+
+            case ATTEND:
+                title = "Attend";
+                defValue = object.getAtt();
+                callback = new NumberPickerDialogFragment.NumberPickerCallback() {
+                    @Override
+                    public void callback(int number) {
+
+                        object.setAtt(number);
+                    }
+                };
+                break;
+            case LATE:
+                title = "Late";
+                defValue = object.getLate();
+                callback = new NumberPickerDialogFragment.NumberPickerCallback() {
+                    @Override
+                    public void callback(int number) {
+
+                        object.setLate(number);
+                    }
+                };
+                break;
+            case ABSENT:
+                title = "Absent";
+                defValue = object.getAbs();
+                callback = new NumberPickerDialogFragment.NumberPickerCallback() {
+                    @Override
+                    public void callback(int number) {
+
+                        object.setAbs(number);
+                    }
+                };
+                break;
+        }
+        title += " times";
+
+        NumberPickerDialogFragment dialogFragment
+                = new NumberPickerDialogFragment().createDialog(callback, title, 0, 15, defValue);
+
+        dialogFragment.show(getChildFragmentManager(), title);
+    }
+
+    @Override
+    public void setData(ClassObject classObject) {
         this.object = classObject;
     }
 
     @Override
-    public void savedClassObject() {
+    public void finishActivity() {
         getActivity().finish();
     }
 
     @Override
-    public void canceled() {
-        getActivity().finish();
-    }
+    public void showColorPickerDialog() {
 
-    private void setupView(){
-
-        setEditTextViewsValue();
-        setSpinners();
-        setAttendanceStateValue();
-        setOnCLickListener();
-        setColorView(colorView, object.getThemeColor());
-    }
-
-    private void setEditTextViewsValue() {
-
-        if (object != null) {
-
-            if (object.getClassName() != null) classNameEditView.setText(object.getClassName());
-            if (object.getRoomName() != null) roomNameEditView.setText(object.getRoomName());
-            if (object.getTeacherName() != null)
-                teacherNameEditView.setText(object.getTeacherName());
-        }
-    }
-
-    private void setSpinners(){
-
-        ClassTablePreference preference = ClassTablePreference.getInstance();
-        ArrayAdapter<String> adapter = new ArrayAdapter(getActivity(),android.R.layout.simple_spinner_item);
-        for(DayOfWeek week: preference.getDaysOfWeek()) {
-
-            adapter.add(week.getWeekName());
-        }
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        weekSpinner.setAdapter(adapter);
-
-        ArrayAdapter<Integer> intAdapter = new ArrayAdapter<Integer>(getContext(),android.R.layout.simple_spinner_item);
-        for(int i = 1; i <= preference.getCountOfSection(); i++) intAdapter.add(i);
-        intAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        startSpinner.setAdapter(intAdapter);
-        sectionSpinner.setAdapter(intAdapter);
-
-        if (object == null) return;
-
-        String week = object.getWeek().getWeekName();
-        weekSpinner.setSelection(adapter.getPosition(week));
-        int number = object.getStart();
-        if (number>0) startSpinner.setSelection(intAdapter.getPosition(number));
-        number = object.getSection();
-        if (number>0) sectionSpinner.setSelection(intAdapter.getPosition(number));
-    }
-
-    private void setAttendanceStateValue() {
-        if (object != null) {
-            attView.setText(String.valueOf(object.getAtt()));
-            lateView.setText(String.valueOf(object.getLate()));
-            absView.setText(String.valueOf(object.getAbs()));
-        }
-    }
-
-    private void setOnCLickListener(){
-
-        attView.setOnLongClickListener(new OnMyLongClickListener("Attend",attView));
-        lateView.setOnLongClickListener(new OnMyLongClickListener("Late",lateView));
-        absView.setOnLongClickListener(new OnMyLongClickListener("Absent",absView));
-        saveBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                editPresenter.saveClassObject(outputToClassObject(object));
-            }
-        });
-        cancelBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                editPresenter.cancelBtnClick();
-            }
-        });
-        colorView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                createColorPickerDialog(ThemeColor.getColorResIdArray());
-            }
-        });
-    }
-
-    private void setColorView(View view, ThemeColor themeColor) {
-
-        int colorResId = themeColor.getPrimaryColorResId();
-        GradientDrawable drawable = new GradientDrawable();
-        drawable.setShape(GradientDrawable.RECTANGLE);
-        int scale = (int)(getResources().getDisplayMetrics().density*1.5f);
-        drawable.setStroke(scale,ContextCompat.getColor(getContext(),R.color.colorBorder));
-        drawable.setColor(ContextCompat.getColor(getContext(),colorResId));
-        view.setBackground(drawable);
-    }
-
-
-    private void createColorPickerDialog(ArrayList colorList){
-
+        ArrayList colorList = ThemeColor.getColorResIdArray();
         ColorPickerDialog colorPickerDialog = ColorPickerDialog.newInstance(
-                        ColorPickerDialog.SELECTION_SINGLE,
+                ColorPickerDialog.SELECTION_SINGLE,
                         colorList,
                         4,
                         ColorPickerDialog.SIZE_SMALL
@@ -240,56 +225,13 @@ public class EditClassFragment extends Fragment implements EditClassContract.Vie
                     int colorResId = mSelectedColors.get(0);
                     ThemeColor themeColor = ThemeColor.getThemeColorByColorResId(colorResId);
                     object.setThemeColor(themeColor);
-                    setColorView(colorView, themeColor);
+                    setColorView(binding.colorView, themeColor);
                 }
             }
 
             @Override
-            public void onDismiss() {
-            }
+            public void onDismiss() { }
         });
         colorPickerDialog.show(getChildFragmentManager(),"coloPickerFragment");
     }
-
-
-    private ClassObject outputToClassObject(ClassObject co){
-
-        co.setClassName(classNameEditView.getText().toString());
-        co.setTeacherName(teacherNameEditView.getText().toString());
-        co.setRoomName(roomNameEditView.getText().toString());
-        co.setWeek(DayOfWeek.getWeek(weekSpinner.getSelectedItem().toString()));
-        co.setStart(Integer.parseInt(startSpinner.getSelectedItem().toString()));
-        co.setSection(Integer.parseInt(sectionSpinner.getSelectedItem().toString()));
-        co.setAtt(Integer.parseInt(attView.getText().toString()));
-        co.setLate(Integer.parseInt(lateView.getText().toString()));
-        co.setAbs(Integer.parseInt(absView.getText().toString()));
-        return co;
-    }
-
-    private class OnMyLongClickListener implements View.OnLongClickListener,
-            NumberPickerDialogFragment.NumberPickerCallback{
-
-        private String title;
-        private TextView textView;
-
-        OnMyLongClickListener(String title,TextView textView){
-            this.title = title;
-            this.textView = textView;
-        }
-
-        @Override
-        public boolean onLongClick(View view) {
-
-            NumberPickerDialogFragment dialogFragment
-                    = new NumberPickerDialogFragment().createDialog(this, title + " times", 0, 15, 0);
-            dialogFragment.show(getChildFragmentManager(),title + "_picker");
-            return true;
-        }
-
-        @Override
-        public void callback(int number) {
-            textView.setText(String.valueOf(number));
-        }
-    }
-
 }
