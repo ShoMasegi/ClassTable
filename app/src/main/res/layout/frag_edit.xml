@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="8dp"
     tools:context=".view.activity.EditClassActivity">
 
@@ -167,17 +166,10 @@
         </LinearLayout>
 
         <!--Attendance Status Layout -->
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginTop="16dp"
-            android:background="#D3D3D3" />
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="16dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
@@ -188,127 +180,135 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="72dp"
+            android:orientation="horizontal"
+            android:weightSum="3"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:layout_marginTop="16dp"
-            android:orientation="horizontal"
-            android:weightSum="3">
+            android:layout_marginTop="16dp">
 
-            <!--Number display-->
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="horizontal">
+                android:layout_weight="1">
+
+                <!--Number display-->
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
                     android:layout_marginLeft="8dp"
-                    android:gravity="right"
                     android:text="Attend"
                     android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/times_attend"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center|bottom"
-                    android:text="0"
-                    android:textSize="56sp" />
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="10"
+                    android:textSize="48sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="@dimen/space_4dp"
                     android:gravity="bottom"
                     android:text="times"
                     android:textSize="10sp" />
-            </LinearLayout>
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp"
-                android:background="#D3D3D3" />
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="#D3D3D3" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="horizontal">
+                android:layout_weight="1">
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="16dp"
-                    android:gravity="right"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="@dimen/space_8dp"
                     android:text="Late"
                     android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/times_late"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center|bottom"
-                    android:text="0"
-                    android:textSize="56sp" />
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="10"
+                    android:textSize="48sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginBottom="8dp"
-                    android:gravity="bottom"
+                    android:layout_marginEnd="@dimen/space_4dp"
                     android:text="times"
                     android:textSize="10sp" />
-            </LinearLayout>
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp"
-                android:background="#D3D3D3" />
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
+                    android:background="#D3D3D3" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="horizontal">
+                android:layout_weight="1">
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="8dp"
-                    android:gravity="right"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="@dimen/space_8dp"
                     android:text="Absent"
                     android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/times_abs"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center|bottom"
-                    android:text="0"
-                    android:textSize="56sp" />
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="10"
+                    android:textSize="48sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_marginBottom="8dp"
-                    android:gravity="bottom"
+                    android:layout_marginEnd="@dimen/space_4dp"
                     android:text="times"
                     android:textSize="10sp" />
-            </LinearLayout>
-        </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_margin="16dp"
-            android:background="#D3D3D3" />
+            </RelativeLayout>
+
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -322,13 +322,17 @@
                 android:layout_height="wrap_content"
                 android:layout_toStartOf="@+id/save_btn"
                 android:text="cancel" />
+
             <android.support.v7.widget.AppCompatButton
+                android:id="@+id/save_btn"
+                style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="save"
                 android:layout_alignParentEnd="true"
-                android:id="@+id/save_btn"
-                style="@style/Widget.AppCompat.Button.Borderless"/>
+                android:text="save" />
+
         </RelativeLayout>
+
     </LinearLayout>
+
 </ScrollView>

@@ -177,12 +177,11 @@
             <LinearLayout
                 android:id="@+id/detail_attend_status"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="72dp"
                 android:layout_below="@id/detail_sub_attend"
-                android:layout_marginBottom="12dp"
                 android:orientation="horizontal"
-                android:paddingEnd="@dimen/space_8dp"
                 android:paddingStart="@dimen/space_8dp"
+                android:paddingEnd="@dimen/space_8dp"
                 android:weightSum="3">
 
                 <!--Number display-->
@@ -192,10 +191,11 @@
                     android:layout_weight="1">
 
                     <TextView
-                        android:id="@+id/detail_attend_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toStartOf="@+id/detail_attend"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="@dimen/space_8dp"
                         android:text="Attend"
                         android:textSize="12sp" />
 
@@ -203,20 +203,19 @@
                         android:id="@+id/detail_attend"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_toStartOf="@+id/detail_attend_times"
+                        android:layout_centerInParent="true"
                         android:text="@{String.valueOf(object.att)}"
                         android:textColor="@color/char_black"
-                        android:textSize="56sp" />
+                        android:textSize="48sp" />
 
                     <TextView
                         android:id="@+id/detail_attend_times"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignBottom="@+id/detail_attend"
-                        android:layout_marginBottom="@dimen/space_4dp"
-                        android:layout_marginEnd="@dimen/space_12dp"
-                        android:layout_toStartOf="@+id/detail_attend_border"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginBottom="@dimen/space_8dp"
+                        android:layout_marginEnd="@dimen/space_4dp"
                         android:text="times"
                         android:textSize="10sp" />
 
@@ -238,10 +237,11 @@
                     android:layout_weight="1">
 
                     <TextView
-                        android:id="@+id/detail_late_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toStartOf="@+id/detail_late"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="@dimen/space_8dp"
                         android:text="Late"
                         android:textSize="12sp" />
 
@@ -249,17 +249,18 @@
                         android:id="@+id/detail_late"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
+                        android:layout_centerInParent="true"
                         android:text="@{String.valueOf(object.late)}"
                         android:textColor="@color/char_black"
-                        android:textSize="56sp" />
+                        android:textSize="48sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignBottom="@id/detail_late"
-                        android:layout_marginBottom="@dimen/space_4dp"
-                        android:layout_toEndOf="@id/detail_late"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginEnd="@dimen/space_4dp"
+                        android:layout_marginBottom="@dimen/space_8dp"
                         android:text="times"
                         android:textSize="10sp" />
 
@@ -280,10 +281,11 @@
                     android:layout_weight="1">
 
                     <TextView
-                        android:id="@+id/detail_abs_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/space_12dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="@dimen/space_8dp"
                         android:text="Absent"
                         android:textSize="12sp" />
 
@@ -291,22 +293,23 @@
                         android:id="@+id/detail_abs"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignTop="@id/detail_abs_label"
-                        android:layout_toEndOf="@id/detail_abs_label"
+                        android:layout_centerInParent="true"
                         android:text="@{String.valueOf(object.abs)}"
                         android:textColor="@color/char_black"
-                        android:textSize="56sp" />
+                        android:textSize="48sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignBottom="@id/detail_abs"
-                        android:layout_marginBottom="@dimen/space_4dp"
-                        android:layout_toEndOf="@id/detail_abs"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginBottom="@dimen/space_8dp"
+                        android:layout_marginEnd="@dimen/space_4dp"
                         android:text="times"
                         android:textSize="10sp" />
 
                 </RelativeLayout>
+
             </LinearLayout>
 
             <TextView
