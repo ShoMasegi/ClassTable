@@ -30,93 +30,69 @@ public class SettingsPresenter implements SettingsContract.Presenter {
     private int tableId;
 
     public SettingsPresenter(@NonNull PrefsRepository prefsRepository,
-                             @NonNull SettingsContract.Views settingView){
+                             @NonNull SettingsContract.Views settingView) {
 
         this.prefsRepository = prefsRepository;
         this.settingsView = settingView;
-
         settingView.setPresenter(this);
         tableId = ClassTablePreference.getInstance().getTableId();
     }
 
+    @Override
     public void onClickChooseDays() {
         settingsView.showChooseDaysDialog();
     }
 
+    @Override
     public void onClickSetClassTime() {
         settingsView.showSetClassTimeActivity();
     }
 
+    @Override
     public void onClickChooseTable() {
-        settingsView.showChooseTableDialog(tableId);
+
+        settingsView.showChooseTableDialog(tableId, prefsRepository.getTableNames());
     }
 
+    @Override
     public void onClickEditTable(){
         settingsView.showEditTableActivity(tableId);
     }
 
+    @Override
     public void onClickClassesCount() {
+
         settingsView.showClassesCountDialog();
     }
 
+    @Override
     public void onClickAttendMode() {
         settingsView.showChooseAttendModeDialog();
     }
 
+    @Override
     public void onClickLicenses() {
         settingsView.showLicensesListActivity();
     }
 
+    @Override
     public void onCheckedNotificationSetting(boolean isChecked) {
         prefsRepository.setNotificationFlag(tableId, isChecked);
     }
 
+    @Override
     public void onCheckedAttendSetting(boolean isChecked) {
         prefsRepository.setAttendManagementFlag(tableId, isChecked);
     }
 
     @Override
-    public String getCountOfClassesString(){
-
-        int count = prefsRepository.getCountOfClasses(tableId);
-        return String.valueOf(count) + " classes";
-    }
-
-    @Override
-    public String getCurrentTableName() {
-        return prefsRepository.getTableNames().get(tableId);
-    }
-
-    public int getShowAttendModeSettingVisibility() {
-
-        if (prefsRepository.getNotificationFlag(tableId)) {
-            return View.GONE;
-        }
-        else {
-            return View.VISIBLE;
-        }
-    }
-
-    public String getAttendModeString() { return "Notification"; }
-
-    public boolean shouldNotify() {
-        return prefsRepository.getNotificationFlag(tableId);
-    }
-
-    public boolean shouldAttendManagement() {
-
-        return prefsRepository.getAttendManagementFlag(tableId);
-    }
-
-
-    @Override
-    public void setDaysOfWeekValue(boolean[] isExistDays) {
+    public void onChoseDaysOfWeek(boolean[] isExistDays) {
 
         prefsRepository.setDaysOfWeek(tableId, isExistDays);
     }
 
     @Override
-    public void setCurrentTableId(int id) {
+    public void onChoseTable(int id) {
 
         if (this.tableId != id) {
 
@@ -127,13 +103,8 @@ public class SettingsPresenter implements SettingsContract.Presenter {
     }
 
     @Override
-    public void setCountOfClasses(int count) {
+    public void onSelectedClassesCount(int count) {
 
         prefsRepository.setCountOfClasses(tableId, count);
-    }
-
-    @Override
-    public Map<Integer, String> getTableNames() {
-        return prefsRepository.getTableNames();
     }
 }

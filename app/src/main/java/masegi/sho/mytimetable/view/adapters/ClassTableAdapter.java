@@ -43,7 +43,7 @@ public class ClassTableAdapter {
 
             ClassTablePreference preference = ClassTablePreference.getInstance();
             classTable.removeAllViews();
-            classTable.setSectionCount(preference.getCountOfSection())
+            classTable.setSectionCount(preference.getCountOfClasses())
                     .setWeek(preference.getDaysOfWeek())
                     .build();
         } else {

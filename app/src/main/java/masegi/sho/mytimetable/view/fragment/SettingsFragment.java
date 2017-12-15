@@ -23,7 +23,6 @@ import masegi.sho.mytimetable.databinding.FragSettingsBinding;
 import masegi.sho.mytimetable.di.contract.SettingsContract;
 import masegi.sho.mytimetable.domain.value.DayOfWeek;
 import masegi.sho.mytimetable.preferences.ClassTablePreference;
-import masegi.sho.mytimetable.presenter.SettingsPresenter;
 import masegi.sho.mytimetable.view.activity.EditClassTimeActivity;
 import masegi.sho.mytimetable.view.activity.EditTableActivity;
 import masegi.sho.mytimetable.view.activity.LicensesActivity;
@@ -44,6 +43,7 @@ public class SettingsFragment extends Fragment implements SettingsContract.Views
     }
 
     public static SettingsFragment newInstance() {
+
         SettingsFragment fragment = new SettingsFragment();
         return fragment;
     }
@@ -51,16 +51,18 @@ public class SettingsFragment extends Fragment implements SettingsContract.Views
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         binding = DataBindingUtil.inflate(inflater, R.layout.frag_settings, container, false);
         View root = binding.getRoot();
-        binding.setPresenter((SettingsPresenter) presenter);
-
+        binding.setPresenter(presenter);
+        binding.setPrefs(ClassTablePreference.getInstance());
         return root;
     }
 
 
     @Override
     public void setPresenter(@NonNull SettingsContract.Presenter presenter) {
+
         this.presenter = presenter;
     }
 
@@ -75,7 +77,6 @@ public class SettingsFragment extends Fragment implements SettingsContract.Views
 
             isExistDays[i++] = weekList.contains(day) ? true : false;
         }
-
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setMultiChoiceItems(
                 DayOfWeek.getWeekString(),
@@ -90,7 +91,8 @@ public class SettingsFragment extends Fragment implements SettingsContract.Views
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        presenter.setDaysOfWeekValue(isExistDays);
+
+                        presenter.onChoseDaysOfWeek(isExistDays);
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, null)
@@ -105,12 +107,10 @@ public class SettingsFragment extends Fragment implements SettingsContract.Views
     }
 
     @Override
-    public void showChooseTableDialog(int nowId) {
-        final Map<Integer, String> tableNamesMap = presenter.getTableNames();
+    public void showChooseTableDialog(int nowId, Map<Integer, String> tableNameMap) {
 
-        final ArrayList<Integer> idsList = new ArrayList<>(tableNamesMap.keySet());
-        String[] tableNames = tableNamesMap.values().toArray(new String[0]);
-
+        final ArrayList<Integer> idsList = new ArrayList<>(tableNameMap.keySet());
+        String[] tableNames = tableNameMap.values().toArray(new String[0]);
         final List<Integer> checkedIds = new ArrayList<>();
         checkedIds.add(idsList.indexOf(nowId));
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
@@ -127,7 +127,7 @@ public class SettingsFragment extends Fragment implements SettingsContract.Views
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        presenter.setCurrentTableId(idsList.get(checkedIds.get(0)));
+                        presenter.onChoseTable(idsList.get(checkedIds.get(0)));
                     }
                 })
                 .setNegativeButton(android.R.string.cancel, null)
@@ -151,14 +151,13 @@ public class SettingsFragment extends Fragment implements SettingsContract.Views
                 new NumberPickerDialogFragment.NumberPickerCallback() {
                     @Override
                     public void callback(int number) {
-                        presenter.setCountOfClasses(number);
-                        binding.numberOfClassDescription.setText(presenter.getCountOfClassesString());
+                        presenter.onSelectedClassesCount(number);
                     }
                 },
                 getString(R.string.dialog_count_classes),
                 1,
                 8,
-                ClassTablePreference.getInstance().getCountOfSection()
+                ClassTablePreference.getInstance().getCountOfClasses()
         );
         dialogFragment.show(getFragmentManager(), "classes_count_picker");
     }
@@ -166,13 +165,6 @@ public class SettingsFragment extends Fragment implements SettingsContract.Views
     @Override
     public void showChooseAttendModeDialog() {
 
-    }
-
-    @Override
-    public void onResume() {
-        binding.settingSelectTableDescription.setText(
-                presenter.getCurrentTableName());
-        super.onResume();
     }
 
     @Override

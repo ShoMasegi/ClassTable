@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
+        <import type="android.view.View"/>
         <variable
             name="presenter"
-            type="masegi.sho.mytimetable.presenter.SettingsPresenter"/>
+            type="masegi.sho.mytimetable.di.contract.SettingsContract.Presenter"/>
+        <variable
+            name="prefs"
+            type="masegi.sho.mytimetable.preferences.ClassTablePreference"/>
     </data>
 
     <ScrollView
@@ -82,7 +86,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/numberOfClass_title"
                     android:layout_marginTop="@dimen/space_4dp"
-                    android:text="@{presenter.getCountOfClassesString}"
+                    android:text='@{String.valueOf(prefs.countOfClasses) + " classes"}'
                     android:ellipsize="end"
                     android:lines="1"
                     tools:text="5 classes" />
@@ -115,7 +119,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/setting_select_table"
                     android:layout_marginTop="@dimen/space_4dp"
-                    android:text="@{presenter.getCurrentTableName}"
+                    android:text="@{prefs.tableName}"
                     android:ellipsize="end"
                     android:lines="1"
                     tools:text="5 classes" />
@@ -188,7 +192,7 @@
             <masegi.sho.mytimetable.view.customview.SettingSwitchRowView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:settingDefaultValue="@{presenter.shouldNotify}"
+                app:settingDefaultValue="@{prefs.shouldNotify}"
                 app:settingOnCheckedChanged="@{(v, checked) -> presenter.onCheckedNotificationSetting(checked)}"
                 app:settingTitle="@string/settings_notification"
                 app:settingDescription="@string/settings_notification_description"
@@ -217,7 +221,7 @@
             <masegi.sho.mytimetable.view.customview.SettingSwitchRowView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:settingDefaultValue="@{presenter.shouldAttendManagement()}"
+                app:settingDefaultValue="@{prefs.attendManage}"
                 app:settingOnCheckedChanged="@{(v, checked) -> presenter.onCheckedAttendSetting(checked)}"
                 app:settingTitle="@string/settings_attendance_title"
                 app:settingDescription="@string/settings_attendance_description"
@@ -229,7 +233,7 @@
                 android:id="@+id/setting_management_mode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="@{presenter.getShowAttendModeSettingVisibility}"
+                android:visibility="@{prefs.shouldNotify ? View.VISIBLE : View.GONE}"
                 android:clickable="false"
                 android:onClick="@{() -> presenter.onClickAttendMode()}"
                 android:padding="@dimen/space_16dp">
@@ -253,7 +257,7 @@
                     android:layout_marginTop="@dimen/space_4dp"
                     android:ellipsize="end"
                     android:lines="1"
-                    android:text="@{presenter.getAttendModeString}"
+                    android:text="@{prefs.attendModeString}"
                     tools:text="Chose management mode." />
 
             </RelativeLayout>

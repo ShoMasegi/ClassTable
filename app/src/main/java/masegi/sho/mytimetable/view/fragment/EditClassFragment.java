@@ -91,7 +91,7 @@ public class EditClassFragment extends Fragment implements EditClassContract.Vie
 
         final ArrayAdapter<Integer> intAdapter
                 = new ArrayAdapter(getContext(), android.R.layout.simple_spinner_dropdown_item);
-        for(int i = 1; i <= preference.getCountOfSection(); i++) {
+        for(int i = 1; i <= preference.getCountOfClasses(); i++) {
 
             intAdapter.add(i);
         }

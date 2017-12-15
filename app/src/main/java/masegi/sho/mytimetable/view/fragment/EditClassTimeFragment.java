@@ -49,7 +49,7 @@ public class EditClassTimeFragment extends Fragment implements SettingsClassTime
 
         super.onCreate(savedInstanceState);
         classTimeMap = presenter.getClassTimes();
-        count = ClassTablePreference.getInstance().getCountOfSection();
+        count = ClassTablePreference.getInstance().getCountOfClasses();
     }
 
     @Override
