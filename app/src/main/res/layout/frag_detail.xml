@@ -51,7 +51,7 @@
                 android:layout_marginLeft="12dp"
                 android:layout_toRightOf="@id/account_box"
                 android:text=
-                    '@{!(object.teacherName == null || object.teacherName.isEmpty()) ? object.teacherName : "No Name"}'
+                    '@{!object.teacherName.isEmpty() ? object.teacherName : "No Name"}'
                 android:textColor="@color/char_black"
                 android:textSize="18sp" />
 
@@ -75,7 +75,7 @@
                 android:layout_marginStart="@dimen/space_12dp"
                 android:layout_toRightOf="@id/location_on"
                 android:text=
-                    '@{!(object.roomName == null || object.roomName.isEmpty()) ? object.roomName : "No Location"}'
+                    '@{!object.roomName.isEmpty() ? object.roomName : "No Location"}'
                 android:textColor="@color/char_black"
                 android:textSize="18sp" />
 
