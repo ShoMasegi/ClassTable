@@ -37,21 +37,21 @@ public class ClassObject extends BaseObservable implements Parcelable {
         this.week = week;
         this.start = start;
         this.section = section;
-        this.roomName = roomName;
-        this.teacherName = teacherName;
+        this.roomName = roomName != null ? roomName : "";
+        this.teacherName = teacherName != null ? teacherName : "";
         this.themeColor = themeColor;
     }
     public ClassObject(String className, DayOfWeek week, int start, int section) {
 
         this(className,
                 week, start, section,
-                null,null, ThemeColor.DEFAULT);
+                "", "", ThemeColor.DEFAULT);
     }
-    public ClassObject(String className,DayOfWeek week,int start) {
+    public ClassObject(String className, DayOfWeek week, int start) {
 
         this(className, week, start, 1);
     }
-    public ClassObject(String className,DayOfWeek week) {
+    public ClassObject(String className, DayOfWeek week) {
 
         this(className, week, 1);
     }
@@ -75,35 +75,77 @@ public class ClassObject extends BaseObservable implements Parcelable {
 
     /*-------        getter & setter        --------------*/
 
-    public int getId() { return this.id; }
+    public int getId() {
+
+        return this.id;
+    }
     @Bindable
-    public String getClassName() { return this.className; }
+    public String getClassName() {
+
+        return this.className;
+    }
     @Bindable
-    public DayOfWeek getWeek() { return  this.week; }
+    public DayOfWeek getWeek() {
+
+        return  this.week;
+    }
     @Bindable
     public String getWeekString() {
 
         return this.week.getWeekName();
     }
     @Bindable
-    public int getStart() { return  this.start; }
-    public String getStartPeriod() { return OrdinalNumber.ordinalNumberString(this.start) + " Period"; }
-    @Bindable
-    public int getSection() { return this.section; }
-    @Bindable
-    public String getRoomName() { return this.roomName; }
-    @Bindable
-    public String getTeacherName() { return this.teacherName; }
-    @Bindable
-    public int getAtt() { return this.att; }
-    @Bindable
-    public int getLate() { return this.late; }
-    @Bindable
-    public int getAbs() { return this.abs; }
-    public int[] getPosition() { return new int[]{getWeek().ordinal(),getStart()};}
-    public ThemeColor getThemeColor() { return this.themeColor; }
+    public int getStart() {
 
-    public void setId(int id) { this.id = id; }
+        return  this.start;
+    }
+    public String getStartPeriod() {
+
+        return OrdinalNumber.ordinalNumberString(this.start) + " Period";
+    }
+    @Bindable
+    public int getSection() {
+
+        return this.section;
+    }
+    @Bindable
+    public String getRoomName() {
+
+        return this.roomName;
+    }
+    @Bindable
+    public String getTeacherName() {
+
+        return this.teacherName;
+    }
+    @Bindable
+    public int getAtt() {
+
+        return this.att;
+    }
+    @Bindable
+    public int getLate() {
+
+        return this.late;
+    }
+    @Bindable
+    public int getAbs() {
+
+        return this.abs;
+    }
+    public int[] getPosition() {
+
+        return new int[] {getWeek().ordinal(), getStart()};
+    }
+    public ThemeColor getThemeColor() {
+
+        return this.themeColor;
+    }
+
+    public void setId(int id) {
+
+        this.id = id;
+    }
     public void setClassName(String className) {
 
         this.className = className;
@@ -131,12 +173,12 @@ public class ClassObject extends BaseObservable implements Parcelable {
     }
     public void setRoomName(String roomName) {
 
-        this.roomName = roomName;
+        this.roomName = roomName != null ? roomName : "";
         notifyPropertyChanged(BR.roomName);
     }
     public void setTeacherName(String teacherName) {
 
-        this.teacherName = teacherName;
+        this.teacherName = teacherName != null ? teacherName : "";
         notifyPropertyChanged(BR.teacherName);
     }
     public void setAtt(int att) {
