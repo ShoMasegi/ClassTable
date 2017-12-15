@@ -518,7 +518,7 @@ public class ClassLocalDataResources implements ClassDataResources , Observer.Se
     private int check(int id, String name, DayOfWeek week, int time, int section) {
 
         final int limit = time + section -1;
-        boolean isNotOverflow = limit <= ClassTablePreference.getInstance().getCountOfSection();
+        boolean isNotOverflow = limit <= ClassTablePreference.getInstance().getCountOfClasses();
 
         if (name.isEmpty()) {
 

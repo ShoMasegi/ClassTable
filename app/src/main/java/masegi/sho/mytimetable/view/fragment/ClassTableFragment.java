@@ -65,7 +65,7 @@ public class ClassTableFragment extends Fragment implements ClassTableContract.V
         ClassTable timeTable = (ClassTable)root.findViewById(R.id.timetable);
         ClassTablePreference preference = ClassTablePreference.getInstance();
         timeTable.setWeek(preference.getDaysOfWeek())
-                .setSectionCount(preference.getCountOfSection())
+                .setSectionCount(preference.getCountOfClasses())
                 .setAdapter(classTableAdapter)
                 .build();
         return root;
