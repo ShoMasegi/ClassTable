@@ -1,7 +1,6 @@
 package masegi.sho.mytimetable.view.fragment;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -31,16 +30,19 @@ public class TodayClassesFragment extends Fragment
     private FragmentPagerAdapter adapter;
     private ViewPager pager;
     private TabLayout tabLayout;
+    private DayOfWeek[] days;
 
     private ClassListContract.Presenter classListPresenter;
 
-    private DayOfWeek[] days;
 
     public TodayClassesFragment() {
         // Required empty public constructor
     }
 
-    public static TodayClassesFragment newInstance(){ return new TodayClassesFragment(); }
+    public static TodayClassesFragment newInstance() {
+
+        return new TodayClassesFragment();
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,34 +64,25 @@ public class TodayClassesFragment extends Fragment
         pager.addOnPageChangeListener(this);
         tabLayout.setupWithViewPager(pager);
 
-        // set initial page index
         int index = 0;
         Calendar today = Calendar.getInstance();
         DayOfWeek todayWeek = DayOfWeek.getWeekByOrdinal(today.get(Calendar.DAY_OF_WEEK) - 1);
-        for (int i=0;i<days.length;i++) {
+        for (int i=0; i < days.length; i++) {
 
-            if (todayWeek == days[i]){
+            if (todayWeek == days[i]) {
 
                 index = i;
                 break;
             }
         }
         pager.setCurrentItem(index);
-
         return root;
-    }
-
-    @Override
-    public void onResume() {
-
-        classListPresenter.onResume();
-        super.onResume();
     }
 
     @Override
     public void onDestroy() {
 
-        classListPresenter.onDestroy();
+        classListPresenter.onMainViewDestroy();
         super.onDestroy();
     }
 

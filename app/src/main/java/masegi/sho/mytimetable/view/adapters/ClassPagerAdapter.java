@@ -30,8 +30,6 @@ public class ClassPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getItemPosition(Object object) {
 
-        ClassListContract.ListViews view = (ClassListContract.ListViews)object;
-        if (view != null) view.update();
         return super.getItemPosition(object);
     }
 
