@@ -10,23 +10,23 @@ import masegi.sho.mytimetable.domain.value.ClassObject;
 
 public interface ClassListContract {
 
-    interface Views extends BaseView<Presenter>{
+    interface Views extends BaseView<Presenter> {
         void rebuild();
         void startDetailActivity(ClassObject item);
     }
 
-    interface ListViews extends BaseView<Presenter>{
+    interface ListViews extends BaseView<Presenter> {
         void setData(ClassObject[] classObjects, HashMap memoMap);
-        void showNoData();
-        void update();
+        void update(ClassObject[] classObjects, HashMap memoMap);
     }
 
-    interface Presenter extends BasePresenter{
+    interface Presenter {
         void attachListViews(int position, ListViews listView);
         ClassListContract.ListViews getView(int page);
-        void prepare(int page);
-        void onResume();
-        void onDestroy();
+        void onListViewCreate(int page);
+        void onListViewCreateView(int page);
+        void onListViewDestroy(int page);
+        void onMainViewDestroy();
         void onItemClick(ClassObject item);
     }
 }
