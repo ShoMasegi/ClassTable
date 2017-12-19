@@ -56,7 +56,6 @@ public class TodoEditFragment extends Fragment implements TodoEditContract.Views
         super.onCreate(savedInstanceState);
         className = getArguments().getString(TODO_CLASSNAME_KEY);
         String createDateString = getArguments().getString(TODO_CREATE_KEY);
-
         Calendar createDate =
                 createDateString != null ? CalendarToString.stringToCalendar(createDateString) : null;
         presenter.onCreate(className, createDate);
