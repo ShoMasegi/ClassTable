@@ -11,6 +11,8 @@ import masegi.sho.mytimetable.domain.value.Task;
 public interface TodoEditContract {
 
     interface Views extends BaseView<Presenter>{
+        void showDatePicker();
+        void showColorPickerDialog();
         void showSnackBar(int messageId);
         void finishTodoActivity(boolean isSaved);
         void setTask(Task task);
@@ -18,6 +20,8 @@ public interface TodoEditContract {
 
     interface Presenter {
         void onCreate(String className, Calendar createDate);
+        void onColorViewClicked();
+        void onDueDateButtonClicked();
         void onSaveButtonClicked(Task task);
         void onDeleteButtonClicked(Task task);
     }

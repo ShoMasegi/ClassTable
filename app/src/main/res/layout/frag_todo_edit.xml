@@ -1,166 +1,195 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    android:id="@+id/editTodo_parent"
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:focusableInTouchMode="true"
-    tools:context="masegi.sho.mytimetable.view.activity.TodoEditActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <RelativeLayout
+    <data>
+        <import type="masegi.sho.mytimetable.api.CalendarToString"/>
+        <import type="android.view.View"/>
+        <variable
+            name="task"
+            type="masegi.sho.mytimetable.domain.value.Task"/>
+        <variable
+            name="presenter"
+            type="masegi.sho.mytimetable.di.contract.TodoEditContract.Presenter"/>
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/parent_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <TextView
-            android:id="@+id/editTodo_sub"
-            android:labelFor="@+id/editTodo_sub"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginStart="24dp"
-            android:text="Material Design" >
-            <requestFocus/>
-        </TextView>
+        android:layout_height="match_parent"
+        android:focusableInTouchMode="true"
+        tools:context="masegi.sho.mytimetable.view.activity.TodoEditActivity">
 
-        <View
-            android:id="@+id/editTodo_square"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_below="@+id/editTodo_sub"
-            android:layout_marginBottom="8dp"
-            android:layout_marginStart="18dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/border" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/editTodo_taskName"
-            android:layout_width="175dp"
-            android:layout_height="56dp"
-            android:layout_below="@+id/editTodo_sub"
-            android:layout_marginStart="20dp"
-            android:layout_toEndOf="@+id/editTodo_square">
+            <TextView
+                android:id="@+id/editTodo_sub"
+                android:labelFor="@+id/editTodo_sub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="24dp"
+                android:text="@{task.className}" >
+
+                <requestFocus/>
+
+            </TextView>
+
+            <View
+                android:id="@+id/color_view"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_below="@+id/editTodo_sub"
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/border"
+                android:onClick="@{() -> presenter.onColorViewClicked()}"/>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/editTodo_taskName"
+                android:layout_width="175dp"
+                android:layout_height="56dp"
+                android:layout_below="@+id/editTodo_sub"
+                android:layout_marginStart="20dp"
+                android:layout_toEndOf="@id/color_view">
+
+                <EditText
+                    android:id="@+id/editTodo_taskName_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="Task Name"
+                    android:text="@={task.taskName}"
+                    android:inputType="text"
+                    android:importantForAutofill="noExcludeDescendants"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+
+
+            <TextView
+                android:id="@+id/editTodo_due_sub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Due Date"
+                android:textSize="12sp"
+                android:layout_below="@id/color_view"
+                android:layout_toEndOf="@id/color_view"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="8dp"
+                android:textColor="@color/sub_char_black"/>
+
+            <TextView
+                android:id="@+id/editTodo_due"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/editTodo_due_sub"
+                android:layout_below="@id/editTodo_due_sub"
+                android:text="@{CalendarToString.calendarToDueDate(task.dueDate)}"
+                android:textColor="@color/char_black"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/editTodo_due_btn"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_marginStart="4dp"
+                android:onClick="@{() -> presenter.onDueDateButtonClicked()}"
+                android:background="@drawable/ic_arrow_drop_down_black_24dp"
+                android:layout_alignBottom="@+id/editTodo_due"
+                android:layout_toRightOf="@+id/editTodo_due"
+                android:layout_alignEnd="@+id/editTodo_border2"/>
+
+            <View
+                android:id="@+id/editTodo_border2"
+                android:layout_width="150dp"
+                android:layout_height="1dp"
+                android:layout_alignStart="@+id/editTodo_due"
+                android:background="@color/char_black"
+                android:layout_below="@+id/editTodo_due_btn"
+                android:layout_marginTop="3dp"/>
+
+
+            <TextView
+                android:id="@+id/editTodo_create_sub"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Created Date"
+                android:textSize="12sp"
+                android:layout_below="@+id/color_view"
+                android:layout_toEndOf="@+id/editTodo_due_btn"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="36dp"
+                android:textColor="@color/sub_char_black" />
+
+            <TextView
+                android:id="@+id/editTodo_create"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{CalendarToString.calendarToCreateDate(task.dueDate)}"
+                android:textSize="16sp"
+                android:textColor="@color/char_black"
+                android:layout_below="@id/editTodo_due_sub"
+                android:layout_alignStart="@+id/editTodo_create_sub"/>
+
+
+            <View
+                android:id="@+id/editTodo_border"
+                android:layout_width="86dp"
+                android:layout_height="1dp"
+                android:layout_alignStart="@+id/editTodo_create"
+                android:layout_below="@+id/editTodo_create"
+                android:layout_marginTop="3dp"
+                android:background="@color/char_black" />
 
             <EditText
-                android:id="@+id/editTodo_taskName_edit"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="Task Name"
-                android:inputType="text" />
+                android:id="@+id/editTodo_edit_text"
+                android:layout_width="280dp"
+                android:layout_height="120dp"
+                android:labelFor="@+id/editTodo_sub"
+                android:layout_below="@+id/editTodo_border"
+                android:layout_marginTop="24dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="24dp"
+                android:text="@={task.taskContent}"
+                android:textColor="@color/char_black"
+                android:textSize="16sp"
+                android:inputType="textMultiLine"
+                android:ems="15"
+                android:importantForAutofill="noExcludeDescendants"/>
 
-        </android.support.design.widget.TextInputLayout>
+            <Button
+                android:id="@+id/editTodo_positive_btn"
+                android:layout_width="124dp"
+                android:layout_height="36dp"
+                android:background="@color/positive_btn"
+                android:text="save"
+                android:visibility=
+                    "@{task.taskName == null ? View.GONE : task.taskName.isEmpty() ? View.GONE : View.VISIBLE}"
+                android:onClick="@{() -> presenter.onSaveButtonClicked(task)}"
+                android:textColor="@color/white"
+                android:layout_below="@+id/editTodo_edit_text"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="48dp"/>
 
+            <Button
+                android:id="@+id/editTodo_negative_btn"
+                android:layout_width="124dp"
+                android:layout_height="36dp"
+                android:background="@color/negative_btn"
+                android:text="Remove"
+                android:onClick="@{() -> presenter.onDeleteButtonClicked(task)}"
+                android:textColor="@color/white"
+                android:layout_below="@+id/editTodo_edit_text"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="48dp"/>
 
+        </RelativeLayout>
 
-        <TextView
-            android:id="@+id/editTodo_due_sub"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Due Date"
-            android:textSize="12sp"
-            android:layout_below="@+id/editTodo_square"
-            android:layout_toEndOf="@+id/editTodo_square"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="8dp"
-            android:textColor="@color/sub_char_black"/>
+    </android.support.design.widget.CoordinatorLayout>
 
-        <TextView
-            android:id="@+id/editTodo_due"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/editTodo_due_sub"
-            android:layout_below="@id/editTodo_due_sub"
-            android:text="Thu, 15 Jun, 8:30"
-            android:textColor="@color/char_black"
-            android:textSize="16sp" />
-
-        <Button
-            android:id="@+id/editTodo_due_btn"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:layout_marginStart="4dp"
-            android:background="@drawable/ic_arrow_drop_down_black_24dp"
-            android:layout_alignBottom="@+id/editTodo_due"
-            android:layout_toRightOf="@+id/editTodo_due"
-            android:layout_alignEnd="@+id/editTodo_border2" />
-
-        <View
-            android:id="@+id/editTodo_border2"
-            android:layout_width="150dp"
-            android:layout_height="1dp"
-            android:layout_alignStart="@+id/editTodo_due"
-            android:background="@color/char_black"
-            android:layout_below="@+id/editTodo_due_btn"
-            android:layout_marginTop="3dp"/>
-
-
-        <TextView
-            android:id="@+id/editTodo_create_sub"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Created Date"
-            android:textSize="12sp"
-            android:layout_below="@+id/editTodo_square"
-            android:layout_toEndOf="@+id/editTodo_due_btn"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="36dp"
-            android:textColor="@color/sub_char_black"/>
-
-        <TextView
-            android:id="@+id/editTodo_create"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Mon, 8 May"
-            android:textSize="16sp"
-            android:textColor="@color/char_black"
-            android:layout_below="@id/editTodo_due_sub"
-            android:layout_alignStart="@+id/editTodo_create_sub"/>
-
-
-        <View
-            android:id="@+id/editTodo_border"
-            android:layout_width="86dp"
-            android:layout_height="1dp"
-            android:layout_alignStart="@+id/editTodo_create"
-            android:layout_below="@+id/editTodo_create"
-            android:layout_marginTop="3dp"
-            android:background="@color/char_black" />
-
-        <EditText
-            android:id="@+id/editTodo_edit_text"
-            android:layout_width="280dp"
-            android:layout_height="120dp"
-            android:labelFor="@+id/editTodo_sub"
-            android:layout_below="@+id/editTodo_border"
-            android:layout_marginTop="24dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="24dp"
-            android:textColor="@color/char_black"
-            android:textSize="16sp"
-            android:inputType="textMultiLine"
-            android:ems="15"/>
-
-        <Button
-            android:id="@+id/editTodo_positive_btn"
-            android:layout_width="124dp"
-            android:layout_height="36dp"
-            android:background="@color/positive_btn"
-            android:text="save"
-            android:textColor="@color/white"
-            android:layout_below="@+id/editTodo_edit_text"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="48dp"/>
-
-        <Button
-            android:id="@+id/editTodo_negative_btn"
-            android:layout_width="124dp"
-            android:layout_height="36dp"
-            android:background="@color/negative_btn"
-            android:text="Remove"
-            android:textColor="@color/white"
-            android:layout_below="@+id/editTodo_edit_text"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="48dp"/>
-    </RelativeLayout>
-</android.support.design.widget.CoordinatorLayout>
+</layout>

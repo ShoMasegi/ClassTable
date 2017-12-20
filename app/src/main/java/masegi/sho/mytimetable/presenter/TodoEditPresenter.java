@@ -58,6 +58,18 @@ public class TodoEditPresenter implements TodoEditContract.Presenter {
     }
 
     @Override
+    public void onColorViewClicked() {
+
+        view.showColorPickerDialog();
+    }
+
+    @Override
+    public void onDueDateButtonClicked() {
+
+        view.showDatePicker();
+    }
+
+    @Override
     public void onSaveButtonClicked(Task task) {
 
         this.saveTask(task);
@@ -73,7 +85,12 @@ public class TodoEditPresenter implements TodoEditContract.Presenter {
 
     private void saveTask(Task task) {
 
-        if (task.getTaskName() == null | task.getTaskName().isEmpty()) {
+        if (task.getTaskName() == null) {
+
+            view.showSnackBar(R.string.null_todo_taskName);
+            return;
+        }
+        else if (task.getTaskName().isEmpty()) {
 
             view.showSnackBar(R.string.null_todo_taskName);
             return;
