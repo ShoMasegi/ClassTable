@@ -25,7 +25,7 @@ import com.github.clans.fab.FloatingActionButton;
 import java.util.ArrayList;
 
 import masegi.sho.mytimetable.R;
-import masegi.sho.mytimetable.api.CalendarToString;
+import masegi.sho.mytimetable.Utils.CalendarUtil;
 import masegi.sho.mytimetable.databinding.FragDetailBinding;
 import masegi.sho.mytimetable.di.contract.DetailContract;
 import masegi.sho.mytimetable.domain.value.ClassObject;
@@ -193,7 +193,7 @@ public class DetailFragment extends Fragment implements DetailContract.Views {
         if (task != null) {
 
             intent.putExtra(TODO_CREATE_KEY,
-                    CalendarToString.calendarToString(task.getCreateDate()));
+                    CalendarUtil.calendarToString(task.getCreateDate()));
         }
         startActivityForResult(intent,TODO_REQUEST_CODE);
     }
@@ -300,7 +300,7 @@ public class DetailFragment extends Fragment implements DetailContract.Views {
             drawable.setColor(ContextCompat.getColor(getContext(),colorResId));
             colorView.setBackground(drawable);
             taskName.setText(task.getTaskName());
-            dueDate.setText(CalendarToString.calendarToSimpleDate(task.getDueDate()));
+            dueDate.setText(CalendarUtil.calendarToSimpleDate(task.getDueDate()));
 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override

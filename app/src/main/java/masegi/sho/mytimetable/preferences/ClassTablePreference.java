@@ -11,7 +11,7 @@ import java.util.Map;
 import masegi.sho.mytimetable.BR;
 import masegi.sho.mytimetable.MyApp;
 import masegi.sho.mytimetable.R;
-import masegi.sho.mytimetable.api.Observer;
+import masegi.sho.mytimetable.Utils.ObserverUtil;
 import masegi.sho.mytimetable.data.repository.PrefsRepository;
 import masegi.sho.mytimetable.domain.value.ClassTime;
 import masegi.sho.mytimetable.domain.value.DayOfWeek;
@@ -22,7 +22,7 @@ import static masegi.sho.mytimetable.domain.value.DayOfWeek.*;
  * Created by masegi on 2017/11/01.
  */
 
-public class ClassTablePreference extends BaseObservable implements Observer.Setting {
+public class ClassTablePreference extends BaseObservable implements ObserverUtil.Setting {
 
     private static ClassTablePreference instance = new ClassTablePreference();
 

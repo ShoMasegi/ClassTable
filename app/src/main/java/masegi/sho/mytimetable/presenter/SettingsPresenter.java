@@ -1,21 +1,9 @@
 package masegi.sho.mytimetable.presenter;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
-import android.view.View;
 
-import java.util.ArrayList;
-import java.util.Map;
-
-import masegi.sho.mytimetable.MyApp;
-import masegi.sho.mytimetable.R;
-import masegi.sho.mytimetable.api.Observer;
 import masegi.sho.mytimetable.data.repository.PrefsRepository;
 import masegi.sho.mytimetable.di.contract.SettingsContract;
-import masegi.sho.mytimetable.domain.entity.ClassTableEntity;
-import masegi.sho.mytimetable.domain.value.DayOfWeek;
 import masegi.sho.mytimetable.preferences.ClassTablePreference;
 
 /**

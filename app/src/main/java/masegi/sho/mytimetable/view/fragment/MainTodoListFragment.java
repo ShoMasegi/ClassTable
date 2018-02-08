@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -21,7 +20,7 @@ import android.widget.RelativeLayout;
 import java.util.ArrayList;
 
 import masegi.sho.mytimetable.R;
-import masegi.sho.mytimetable.api.CalendarToString;
+import masegi.sho.mytimetable.Utils.CalendarUtil;
 import masegi.sho.mytimetable.di.contract.MainTodoListContract;
 import masegi.sho.mytimetable.domain.value.Task;
 import masegi.sho.mytimetable.view.activity.TodoEditActivity;
@@ -144,7 +143,7 @@ public class MainTodoListFragment extends Fragment implements MainTodoListContra
         Intent intent = new Intent(getActivity(), TodoEditActivity.class);
         intent.putExtra(TODO_CLASSNAME_KEY, item.getClassName());
         intent.putExtra(TODO_CREATE_KEY,
-                    CalendarToString.calendarToString(item.getCreateDate()));
+                    CalendarUtil.calendarToString(item.getCreateDate()));
         startActivity(intent);
     }
 

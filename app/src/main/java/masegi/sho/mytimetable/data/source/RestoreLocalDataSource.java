@@ -12,8 +12,8 @@ import java.util.ArrayList;
 
 import masegi.sho.mytimetable.MyApp;
 import masegi.sho.mytimetable.R;
-import masegi.sho.mytimetable.api.CalendarToString;
-import masegi.sho.mytimetable.api.Observer;
+import masegi.sho.mytimetable.Utils.CalendarUtil;
+import masegi.sho.mytimetable.Utils.ObserverUtil;
 import masegi.sho.mytimetable.di.RestoreDataSource;
 import masegi.sho.mytimetable.domain.value.Task;
 import masegi.sho.mytimetable.domain.value.ThemeColor;
@@ -25,7 +25,7 @@ import static masegi.sho.mytimetable.domain.entity.RestoreDataEntity.*;
  * Created by masegi on 2017/07/06.
  */
 
-public class RestoreLocalDataSource implements RestoreDataSource, Observer.Setting{
+public class RestoreLocalDataSource implements RestoreDataSource, ObserverUtil.Setting{
 
     private static RestoreLocalDataSource INSTACE;
     private ClassDataHelper dbHelper;
@@ -317,7 +317,7 @@ public class RestoreLocalDataSource implements RestoreDataSource, Observer.Setti
         String[] selectionArgs = {
                 String.valueOf(tableId),
                 task.getClassName(),
-                CalendarToString.calendarToString(task.getCreateDate())
+                CalendarUtil.calendarToString(task.getCreateDate())
         };
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
@@ -338,7 +338,7 @@ public class RestoreLocalDataSource implements RestoreDataSource, Observer.Setti
         String[] selectionArgs = {
                 String.valueOf(tableId),
                 task.getClassName(),
-                CalendarToString.calendarToString(task.getCreateDate())
+                CalendarUtil.calendarToString(task.getCreateDate())
         };
 
         SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -382,9 +382,9 @@ public class RestoreLocalDataSource implements RestoreDataSource, Observer.Setti
         values.put(COLUMN_CLASSNAME_KEY,task.getClassName());
         values.put(COLUMN_TASK_NAME,task.getTaskName());
         values.put(COLUMN_DUEDATE,
-                CalendarToString.calendarToString(task.getDueDate()));
+                CalendarUtil.calendarToString(task.getDueDate()));
         values.put(COLUMN_CREATEDATE,
-                CalendarToString.calendarToString(task.getCreateDate()));
+                CalendarUtil.calendarToString(task.getCreateDate()));
         values.put(COLUMN_TASK_CONTENT, task.getTaskContent());
         values.put(COLUMN_TASK_COLOR,task.getThemeColor().getThemeId());
         values.put(COLUMN_IS_COMPLETED,task.isCompleted());

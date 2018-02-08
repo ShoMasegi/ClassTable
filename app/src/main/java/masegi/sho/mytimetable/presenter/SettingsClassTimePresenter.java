@@ -5,12 +5,11 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 
-import java.util.ArrayList;
 import java.util.Map;
 
 import masegi.sho.mytimetable.MyApp;
 import masegi.sho.mytimetable.R;
-import masegi.sho.mytimetable.api.Observer;
+import masegi.sho.mytimetable.Utils.ObserverUtil;
 import masegi.sho.mytimetable.data.repository.PrefsRepository;
 import masegi.sho.mytimetable.di.contract.SettingsClassTimeContract;
 import masegi.sho.mytimetable.domain.value.ClassTime;
@@ -20,7 +19,7 @@ import masegi.sho.mytimetable.domain.value.ClassTime;
  */
 
 public class SettingsClassTimePresenter implements SettingsClassTimeContract.Presenter,
-        Observer.Setting {
+        ObserverUtil.Setting {
 
     private SettingsClassTimeContract.Views view;
     private PrefsRepository prefsRepository;

@@ -10,11 +10,10 @@ import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
-import java.util.Map;
 
 import masegi.sho.mytimetable.MyApp;
 import masegi.sho.mytimetable.R;
-import masegi.sho.mytimetable.api.Observer;
+import masegi.sho.mytimetable.Utils.ObserverUtil;
 import masegi.sho.mytimetable.data.ClassDataSource;
 import masegi.sho.mytimetable.di.ClassDataResources;
 import masegi.sho.mytimetable.domain.value.ClassObject;
@@ -30,7 +29,7 @@ import static masegi.sho.mytimetable.domain.entity.ClassTableEntity.*;
  * Created by masegi on 2017/06/30.
  */
 
-public class ClassLocalDataResources implements ClassDataResources , Observer.Setting{
+public class ClassLocalDataResources implements ClassDataResources , ObserverUtil.Setting{
 
     private static ClassLocalDataResources instance;
     private ClassDataHelper dbHelper;

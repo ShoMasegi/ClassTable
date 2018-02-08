@@ -12,12 +12,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.TreeSet;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import masegi.sho.mytimetable.R;
-import masegi.sho.mytimetable.api.CalendarToString;
+import masegi.sho.mytimetable.Utils.CalendarUtil;
 import masegi.sho.mytimetable.domain.value.Task;
 
 /**
@@ -91,7 +90,7 @@ public class MainTodoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 ((HolderViewHolder)holder).classNameView.setText(classNameString);
                 ((HolderViewHolder)holder).contentView.setText(contentString);
                 ((HolderViewHolder)holder).dueTimeView.setText(
-                        CalendarToString.calendarToSimpleTime(item.getDueDate()));
+                        CalendarUtil.calendarToSimpleTime(item.getDueDate()));
                 GradientDrawable drawable = new GradientDrawable();
                 drawable.setShape(GradientDrawable.OVAL);
                 int colorResId = item.getThemeColor().getPrimaryColorResId();
@@ -180,10 +179,10 @@ public class MainTodoListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         int i = 0;
         for (Task task : data){
 
-            taskDate = CalendarToString.calendarToString(task.getDueDate()).substring(0,8);
+            taskDate = CalendarUtil.calendarToString(task.getDueDate()).substring(0,8);
             if (!(date.equals(taskDate))){
 
-                Task dateTask = new Task(null,CalendarToString.calendarToTodoDate(task.getDueDate()));
+                Task dateTask = new Task(null, CalendarUtil.calendarToTodoDate(task.getDueDate()));
                 dataWithDate.add(i++,dateTask);
                 date = taskDate;
             }

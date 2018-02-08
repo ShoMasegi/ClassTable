@@ -6,7 +6,7 @@ import android.databinding.Bindable;
 import java.util.Calendar;
 
 import masegi.sho.mytimetable.BR;
-import masegi.sho.mytimetable.api.CalendarToString;
+import masegi.sho.mytimetable.Utils.CalendarUtil;
 
 import static masegi.sho.mytimetable.domain.entity.RestoreDataEntity.TASK_COMPLETED;
 
@@ -46,7 +46,7 @@ public class Task extends BaseObservable {
                 String dueDate, ThemeColor themeColor) {
 
         this(className,taskName, content,
-                CalendarToString.stringToCalendar(dueDate), themeColor);
+                CalendarUtil.stringToCalendar(dueDate), themeColor);
     }
     public Task(String className, String taskName, String content, String dueDate) {
 
@@ -89,11 +89,11 @@ public class Task extends BaseObservable {
     }
     public String getDueDateString() {
 
-        return CalendarToString.calendarToDueDate(this.dueDate);
+        return CalendarUtil.calendarToDueDate(this.dueDate);
     }
     public String getCreateDateString() {
 
-        return CalendarToString.calendarToCreateDate(this.createDate);
+        return CalendarUtil.calendarToCreateDate(this.createDate);
     }
     public ThemeColor getThemeColor() {
 
@@ -120,7 +120,7 @@ public class Task extends BaseObservable {
     }
     public void setDueDate(String dueDate) {
 
-        this.dueDate = CalendarToString.stringToCalendar(dueDate);
+        this.dueDate = CalendarUtil.stringToCalendar(dueDate);
         notifyPropertyChanged(BR.dueDate);
     }
     public void setDueDate(Calendar dueDateCalendar) {
@@ -130,7 +130,7 @@ public class Task extends BaseObservable {
     }
     public void setCreateDate(String createDate) {
 
-        this.createDate = CalendarToString.stringToCalendar(createDate);
+        this.createDate = CalendarUtil.stringToCalendar(createDate);
         notifyPropertyChanged(BR.createDate);
     }
     public void setCreateDate(Calendar createDateCalendar) {

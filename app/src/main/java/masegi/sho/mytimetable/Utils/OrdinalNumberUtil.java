@@ -1,10 +1,10 @@
-package masegi.sho.mytimetable.api;
+package masegi.sho.mytimetable.Utils;
 
 /**
  * Created by masegi on 2017/10/20.
  */
 
-public class OrdinalNumber {
+public class OrdinalNumberUtil {
 
     public static String ordinalNumberString(int num) {
 

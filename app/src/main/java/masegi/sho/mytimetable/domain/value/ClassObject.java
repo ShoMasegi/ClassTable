@@ -6,7 +6,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import masegi.sho.mytimetable.BR;
-import masegi.sho.mytimetable.api.OrdinalNumber;
+import masegi.sho.mytimetable.Utils.OrdinalNumberUtil;
 
 /**
  * Created by masegi on 2017/06/16.
@@ -101,7 +101,7 @@ public class ClassObject extends BaseObservable implements Parcelable {
     }
     public String getStartPeriod() {
 
-        return OrdinalNumber.ordinalNumberString(this.start) + " Period";
+        return OrdinalNumberUtil.ordinalNumberString(this.start) + " Period";
     }
     @Bindable
     public int getSection() {

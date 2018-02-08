@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import masegi.sho.mytimetable.R;
-import masegi.sho.mytimetable.api.CalendarToString;
+import masegi.sho.mytimetable.Utils.CalendarUtil;
 import masegi.sho.mytimetable.data.repository.RestoreDataRepository;
 import masegi.sho.mytimetable.data.source.RestoreLocalDataSource;
 import masegi.sho.mytimetable.di.contract.TodoListContract;
@@ -213,7 +213,7 @@ public class TodoListActivity extends AppCompatActivity
 
             intent.putExtra(TODO_CLASSNAME_KEY, item.getClassName());
             intent.putExtra(TODO_CREATE_KEY,
-                    CalendarToString.calendarToString(item.getCreateDate()));
+                    CalendarUtil.calendarToString(item.getCreateDate()));
         }
         else {
 

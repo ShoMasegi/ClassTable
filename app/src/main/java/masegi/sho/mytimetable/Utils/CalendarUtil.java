@@ -1,4 +1,4 @@
-package masegi.sho.mytimetable.api;
+package masegi.sho.mytimetable.Utils;
 
 
 import java.text.ParseException;
@@ -12,7 +12,7 @@ import java.util.Locale;
  * Created by masegi on 2017/07/07.
  */
 
-public class CalendarToString {
+public class CalendarUtil {
 
 
     private static final String DATABASE_CALENDAR_FORMAT = "yyyyMMddHHmmss";

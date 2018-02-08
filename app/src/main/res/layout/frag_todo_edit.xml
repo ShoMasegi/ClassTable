@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="masegi.sho.mytimetable.api.CalendarToString"/>
+        <import type="masegi.sho.mytimetable.Utils.CalendarUtil"/>
         <import type="android.view.View"/>
         <variable
             name="task"
@@ -89,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/editTodo_due_sub"
                 android:layout_below="@id/editTodo_due_sub"
-                android:text="@{CalendarToString.calendarToDueDate(task.dueDate)}"
+                android:text="@{CalendarUtil.calendarToDueDate(task.dueDate)}"
                 android:textColor="@color/char_black"
                 android:textSize="16sp" />
 
@@ -130,7 +130,7 @@
                 android:id="@+id/editTodo_create"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{CalendarToString.calendarToCreateDate(task.dueDate)}"
+                android:text="@{CalendarUtil.calendarToCreateDate(task.dueDate)}"
                 android:textSize="16sp"
                 android:textColor="@color/char_black"
                 android:layout_below="@id/editTodo_due_sub"

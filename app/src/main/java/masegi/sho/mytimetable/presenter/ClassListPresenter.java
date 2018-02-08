@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import masegi.sho.mytimetable.MyApp;
-import masegi.sho.mytimetable.api.Observer;
+import masegi.sho.mytimetable.Utils.ObserverUtil;
 import masegi.sho.mytimetable.data.repository.ClassObjectsRepository;
 import masegi.sho.mytimetable.data.repository.RestoreDataRepository;
 import masegi.sho.mytimetable.di.ClassDataResources;
@@ -20,7 +20,7 @@ import masegi.sho.mytimetable.preferences.ClassTablePreference;
  */
 
 public class ClassListPresenter implements ClassListContract.Presenter,
-        Observer.Setting, Observer.Class, Observer.Restore {
+        ObserverUtil.Setting, ObserverUtil.Class, ObserverUtil.Restore {
 
     private final ClassListContract.Views mainView;
     private HashMap<Integer, ClassListContract.ListViews> childViewsMap = new HashMap<>();

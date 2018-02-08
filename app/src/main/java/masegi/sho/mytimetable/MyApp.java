@@ -1,15 +1,11 @@
 package masegi.sho.mytimetable;
 
 import android.app.Application;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import masegi.sho.mytimetable.api.Observer;
-import masegi.sho.mytimetable.data.repository.PrefsRepository;
-import masegi.sho.mytimetable.domain.entity.ClassTableEntity;
+import masegi.sho.mytimetable.Utils.ObserverUtil;
 import masegi.sho.mytimetable.domain.value.DayOfWeek;
 
 /**
@@ -18,46 +14,46 @@ import masegi.sho.mytimetable.domain.value.DayOfWeek;
 
 public class MyApp extends Application {
 
-    private static List<Observer.Restore> restores = new CopyOnWriteArrayList<>();
-    private static List<Observer.Class> classes = new CopyOnWriteArrayList<>();
-    private static List<Observer.Setting> settings = new CopyOnWriteArrayList<>();
+    private static List<ObserverUtil.Restore> restores = new CopyOnWriteArrayList<>();
+    private static List<ObserverUtil.Class> classes = new CopyOnWriteArrayList<>();
+    private static List<ObserverUtil.Setting> settings = new CopyOnWriteArrayList<>();
 
     public static void notifyRestoreObservers(){
 
-        for (Observer.Restore observer : restores) {
+        for (ObserverUtil.Restore observer : restores) {
             observer.notifyRestoreObjectChanged();
         }
     }
     public static void notifyClassObservers(DayOfWeek day){
 
         if (day == null) return;
-        for (Observer.Class observer : classes) {
+        for (ObserverUtil.Class observer : classes) {
             observer.notifyClassObjectChanged(day);
         }
     }
     public static void notifySettingsObservers() {
 
-        for (Observer.Setting observer : settings) {
+        for (ObserverUtil.Setting observer : settings) {
             observer.notifySettingChanged();
         }
     }
 
-    public static void addRestoreObserver(Observer.Restore observer){
+    public static void addRestoreObserver(ObserverUtil.Restore observer){
         restores.add(observer);
     }
-    public static void addClassObserver(Observer.Class observer) {
+    public static void addClassObserver(ObserverUtil.Class observer) {
         classes.add(observer);
     }
-    public static void addSettingsObserver(Observer.Setting observer) {
+    public static void addSettingsObserver(ObserverUtil.Setting observer) {
         settings.add(observer);
     }
-    public static void removeRestoreObserver(Observer.Restore observer){
+    public static void removeRestoreObserver(ObserverUtil.Restore observer){
         restores.remove(observer);
     }
-    public static void removeClassObserver(Observer.Class observer){
+    public static void removeClassObserver(ObserverUtil.Class observer){
         classes.remove(observer);
     }
-    public static void removeSettingsObserver(Observer.Setting observer) {
+    public static void removeSettingsObserver(ObserverUtil.Setting observer) {
         settings.remove(observer);
     }
 

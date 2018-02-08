@@ -5,7 +5,7 @@ import android.support.annotation.NonNull;
 import java.util.ArrayList;
 
 import masegi.sho.mytimetable.MyApp;
-import masegi.sho.mytimetable.api.Observer;
+import masegi.sho.mytimetable.Utils.ObserverUtil;
 import masegi.sho.mytimetable.data.repository.RestoreDataRepository;
 import masegi.sho.mytimetable.di.RestoreDataSource;
 import masegi.sho.mytimetable.di.contract.MainTodoListContract;
@@ -15,7 +15,7 @@ import masegi.sho.mytimetable.domain.value.Task;
  * Created by masegi on 2017/08/16.
  */
 
-public class MainTodoListPresenter implements MainTodoListContract.Presenter, Observer.Restore {
+public class MainTodoListPresenter implements MainTodoListContract.Presenter, ObserverUtil.Restore {
 
     private RestoreDataSource restoreDataRepository;
     private final MainTodoListContract.Views todoListViews;

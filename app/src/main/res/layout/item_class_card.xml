@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <import type="masegi.sho.mytimetable.api.OrdinalNumber"/>
+        <import type="masegi.sho.mytimetable.Utils.OrdinalNumberUtil"/>
         <import type="android.view.View"/>
         <variable
             name="object"
@@ -79,7 +79,7 @@
                     android:id="@+id/card_view_sectionTime"
                     android:layout_width="24dp"
                     android:layout_height="wrap_content"
-                    android:text="@{OrdinalNumber.ordinalNumberString(object.start)}"
+                    android:text="@{OrdinalNumberUtil.ordinalNumberString(object.start)}"
                     android:textColor="@color/char_black"
                     android:layout_marginEnd="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"

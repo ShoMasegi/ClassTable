@@ -6,8 +6,8 @@ import android.databinding.Bindable;
 import java.util.Calendar;
 
 import masegi.sho.mytimetable.BR;
-import masegi.sho.mytimetable.api.CalendarToString;
-import masegi.sho.mytimetable.api.OrdinalNumber;
+import masegi.sho.mytimetable.Utils.CalendarUtil;
+import masegi.sho.mytimetable.Utils.OrdinalNumberUtil;
 
 /**
  * Created by masegi on 2017/10/20.
@@ -60,7 +60,7 @@ public class ClassTime extends BaseObservable {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, startHour);
         calendar.set(Calendar.MINUTE, startMin);
-        return CalendarToString.calendarToSimpleTime(calendar);
+        return CalendarUtil.calendarToSimpleTime(calendar);
     }
 
     @Bindable
@@ -69,13 +69,13 @@ public class ClassTime extends BaseObservable {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, endHour);
         calendar.set(Calendar.MINUTE, endMin);
-        return CalendarToString.calendarToSimpleTime(calendar);
+        return CalendarUtil.calendarToSimpleTime(calendar);
     }
 
     @Bindable
     public String getPeriod() {
 
-        String period = OrdinalNumber.ordinalNumberString(periodNum);
+        String period = OrdinalNumberUtil.ordinalNumberString(periodNum);
         return period + " Period";
     }
 

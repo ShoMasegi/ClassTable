@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import masegi.sho.mytimetable.R;
-import masegi.sho.mytimetable.api.CalendarToString;
+import masegi.sho.mytimetable.Utils.CalendarUtil;
 import masegi.sho.mytimetable.databinding.FragTodoEditBinding;
 import masegi.sho.mytimetable.di.contract.TodoEditContract;
 import masegi.sho.mytimetable.domain.value.Task;
@@ -57,7 +57,7 @@ public class TodoEditFragment extends Fragment implements TodoEditContract.Views
         className = getArguments().getString(TODO_CLASSNAME_KEY);
         String createDateString = getArguments().getString(TODO_CREATE_KEY);
         Calendar createDate =
-                createDateString != null ? CalendarToString.stringToCalendar(createDateString) : null;
+                createDateString != null ? CalendarUtil.stringToCalendar(createDateString) : null;
         presenter.onCreate(className, createDate);
     }
 

@@ -1,4 +1,4 @@
-package masegi.sho.mytimetable.api;
+package masegi.sho.mytimetable.Utils;
 
 import masegi.sho.mytimetable.domain.value.DayOfWeek;
 
@@ -6,7 +6,7 @@ import masegi.sho.mytimetable.domain.value.DayOfWeek;
  * Created by masegi on 2017/08/23.
  */
 
-public interface Observer {
+public interface ObserverUtil {
 
     interface Setting {
         void notifySettingChanged();

@@ -4,10 +4,9 @@ import android.support.annotation.NonNull;
 
 
 import java.util.Calendar;
-import java.util.Date;
 
 import masegi.sho.mytimetable.R;
-import masegi.sho.mytimetable.api.CalendarToString;
+import masegi.sho.mytimetable.Utils.CalendarUtil;
 import masegi.sho.mytimetable.data.repository.RestoreDataRepository;
 import masegi.sho.mytimetable.di.contract.TodoEditContract;
 import masegi.sho.mytimetable.domain.value.Task;
@@ -43,7 +42,7 @@ public class TodoEditPresenter implements TodoEditContract.Presenter {
         }
         else {
 
-            String createDateString = CalendarToString.calendarToString(createDate);
+            String createDateString = CalendarUtil.calendarToString(createDate);
             task = restoreDataRepository.getTask(className, createDateString);
             if (task == null) {
 

@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import masegi.sho.mytimetable.MyApp;
-import masegi.sho.mytimetable.api.Observer;
+import masegi.sho.mytimetable.Utils.ObserverUtil;
 import masegi.sho.mytimetable.data.ClassDataSource;
 import masegi.sho.mytimetable.di.contract.ClassTableContract;
 import masegi.sho.mytimetable.data.repository.ClassObjectsRepository;
@@ -18,7 +18,7 @@ import masegi.sho.mytimetable.domain.value.DayOfWeek;
  */
 
 public class ClassTablePresenter implements ClassTableContract.Presenter,
-        Observer.Class, Observer.Setting{
+        ObserverUtil.Class, ObserverUtil.Setting{
 
     private ClassDataResources classObjectsRepository;
     private final ClassTableContract.Views classTableViews;
